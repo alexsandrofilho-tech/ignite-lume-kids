@@ -4,6 +4,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
 /*
  * Design system definition.
  *
@@ -59,11 +61,20 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-ignition: var(--ignition);
+  --color-lume: var(--lume);
+  --color-riso: var(--riso);
+  --color-lou: var(--lou);
+  --color-lila: var(--lila);
+  --color-warm-bg: var(--warm-bg);
+  --font-display: "Fredoka", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.985 0.008 60);
+  --warm-bg: oklch(0.985 0.008 60);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
@@ -95,6 +106,13 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* IGNIÇÃO character palette */
+  --ignition: oklch(0.68 0.21 38);
+  --lume: oklch(0.62 0.21 295);
+  --riso: oklch(0.83 0.17 84);
+  --lou: oklch(0.69 0.15 162);
+  --lila: oklch(0.66 0.24 0);
 }
 
 .dark {
@@ -140,5 +158,19 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
   }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+
+  @keyframes float-soft {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(-2deg); }
+  }
+  .animate-float-soft { animation: float-soft 4s ease-in-out infinite; }
 }
