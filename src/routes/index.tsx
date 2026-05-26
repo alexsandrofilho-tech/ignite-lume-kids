@@ -93,9 +93,9 @@ function Index() {
   const c = t[lang];
 
   const portals = [
-    { id: "unny", bg: "bg-ignition", text: "text-ignition", shadow: "shadow-ignition/40", img: uniImg, label: "UNNY", theme: c.portalNames.unny },
+    { id: "unny", bg: "bg-unny", text: "text-unny-ink", shadow: "shadow-unny/40", img: uniImg, label: "UNNY", theme: c.portalNames.unny },
     { id: "lume", bg: "bg-lume", text: "text-lume", shadow: "shadow-lume/40", img: lumeImg, label: "LUME", theme: c.portalNames.lume },
-    { id: "riso", bg: "bg-riso", text: "text-riso", shadow: "shadow-riso/40", img: risoImg, label: "RISOLETA", theme: c.portalNames.riso },
+    { id: "riso", bg: "bg-riso-lilac", text: "text-riso-lilac", shadow: "shadow-riso-lilac/40", img: risoImg, label: "RISOLETA", theme: c.portalNames.riso },
     { id: "lou", bg: "bg-lou", text: "text-lou", shadow: "shadow-lou/40", img: louImg, label: "LOUVALDO", theme: c.portalNames.lou },
     { id: "lila", bg: "bg-lila", text: "text-lila", shadow: "shadow-lila/40", img: lilaImg, label: "LILA", theme: c.portalNames.lila },
   ] as const;
@@ -182,7 +182,7 @@ function Index() {
         {/* Main content cards */}
         <main className="px-6 space-y-6">
           {/* Devotional (LUME) */}
-          <div className="relative bg-gradient-to-br from-lume to-[oklch(0.45_0.2_295)] rounded-[2.5rem] p-6 text-white overflow-hidden shadow-2xl shadow-lume/30">
+          <div className="relative bg-gradient-to-br from-lume to-[oklch(0.55_0.22_35)] rounded-[2.5rem] p-6 text-white overflow-hidden shadow-2xl shadow-lume/30">
             <div className="absolute -top-4 -right-4 size-32 bg-white/10 rounded-full blur-2xl" />
             <div className="relative z-10 max-w-[60%]">
               <span className="bg-white/20 backdrop-blur-sm text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
@@ -213,19 +213,19 @@ function Index() {
                 <h4 className="font-display font-bold text-2xl text-stone-900">{c.bibleAdv}</h4>
                 <p className="text-stone-400 text-sm">{c.phase}</p>
               </div>
-              <div className="size-14 rounded-full border-4 border-riso flex items-center justify-center text-riso font-display font-bold">
+              <div className="size-14 rounded-full border-4 border-riso-lilac flex items-center justify-center text-riso-lilac font-display font-bold">
                 75%
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-stone-50 p-4 rounded-3xl border border-stone-100 hover:shadow-md transition-shadow cursor-pointer">
+              <div className="bg-riso/15 p-4 rounded-3xl border border-riso/20 hover:shadow-md transition-shadow cursor-pointer">
                 <div className="size-12 bg-white rounded-xl mb-3 shadow-sm flex items-center justify-center">
-                  <BookOpen className="size-6 text-riso" />
+                  <BookOpen className="size-6 text-riso-lilac" />
                 </div>
                 <span className="text-xs font-bold text-stone-900 block">{c.faithMission}</span>
                 <span className="text-[10px] text-stone-400">+50 XP</span>
               </div>
-              <div className="bg-stone-50 p-4 rounded-3xl border border-stone-100 hover:shadow-md transition-shadow cursor-pointer">
+              <div className="bg-riso-lilac/10 p-4 rounded-3xl border border-riso-lilac/20 hover:shadow-md transition-shadow cursor-pointer">
                 <div className="size-12 bg-white rounded-xl mb-3 shadow-sm flex items-center justify-center">
                   <Sparkles className="size-6 text-ignition" />
                 </div>
@@ -259,7 +259,7 @@ function Index() {
           </div>
 
           {/* Weekly Mission (LILA) */}
-          <div className="bg-gradient-to-br from-lila/15 to-lila/5 border border-lila/20 rounded-[2.5rem] p-6 flex items-center gap-4">
+          <div className="bg-gradient-to-br from-lila/20 to-lila/5 border border-lila/30 rounded-[2.5rem] p-6 flex items-center gap-4">
             <img src={lilaImg} alt="Lila" width={80} height={80} className="size-20 object-contain flex-shrink-0 animate-float-soft" loading="lazy" />
             <div className="flex-1">
               <p className="text-lila font-bold text-[10px] uppercase tracking-widest mb-1">
@@ -278,15 +278,15 @@ function Index() {
           </div>
 
           {/* Parents Hub (UNI) */}
-          <div className="bg-stone-900 rounded-[2.5rem] p-5 flex items-center gap-4 shadow-2xl shadow-stone-900/20">
-            <div className="size-12 bg-white/10 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <Users className="size-6 text-white" />
+          <div className="bg-unny-ink rounded-[2.5rem] p-5 flex items-center gap-4 shadow-2xl shadow-unny-ink/30 border-l-8 border-unny">
+            <div className="size-12 bg-unny rounded-2xl flex items-center justify-center flex-shrink-0">
+              <Users className="size-6 text-unny-ink" strokeWidth={2.8} />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-white font-display font-bold text-base">{c.parents}</p>
-              <p className="text-stone-400 text-xs">{c.parentsDesc}</p>
+              <p className="text-unny/80 text-xs">{c.parentsDesc}</p>
             </div>
-            <div className="text-ignition font-display font-bold text-2xl">→</div>
+            <div className="text-unny font-display font-bold text-2xl">→</div>
           </div>
         </main>
 

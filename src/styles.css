@@ -64,8 +64,11 @@
   --color-ignition: var(--ignition);
   --color-lume: var(--lume);
   --color-riso: var(--riso);
+  --color-riso-lilac: var(--riso-lilac);
   --color-lou: var(--lou);
   --color-lila: var(--lila);
+  --color-unny: var(--unny);
+  --color-unny-ink: var(--unny-ink);
   --color-warm-bg: var(--warm-bg);
   --font-display: "Fredoka", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -108,11 +111,15 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
 
   /* IGNIÇÃO character palette */
-  --ignition: oklch(0.68 0.21 38);
-  --lume: oklch(0.62 0.21 295);
-  --riso: oklch(0.83 0.17 84);
-  --lou: oklch(0.69 0.15 162);
-  --lila: oklch(0.66 0.24 0);
+  /* Official character colors */
+  --ignition: oklch(0.72 0.19 50);          /* warm orange brand accent */
+  --lume: oklch(0.72 0.19 50);              /* Lume — Orange */
+  --lou: oklch(0.68 0.18 145);              /* Louvaldo — Green */
+  --lila: oklch(0.45 0.08 55);              /* Lila — Brown */
+  --unny: oklch(0.85 0.17 92);              /* Unny — Yellow */
+  --unny-ink: oklch(0.22 0.02 60);          /* Unny — Black */
+  --riso: oklch(0.86 0.17 92);              /* Risoleta — Yellow */
+  --riso-lilac: oklch(0.72 0.15 310);       /* Risoleta — Lilac */
 }
 
 .dark {
