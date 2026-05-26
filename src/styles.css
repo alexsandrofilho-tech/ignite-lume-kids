@@ -173,5 +173,4 @@
     50% { transform: translateY(-6px) rotate(-2deg); }
   }
   .animate-float-soft { animation: float-soft 4s ease-in-out infinite; }
-  }
 }
