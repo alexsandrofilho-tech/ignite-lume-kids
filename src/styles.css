@@ -64,8 +64,11 @@
   --color-ignition: var(--ignition);
   --color-lume: var(--lume);
   --color-riso: var(--riso);
+  --color-riso-lilac: var(--riso-lilac);
   --color-lou: var(--lou);
   --color-lila: var(--lila);
+  --color-unny: var(--unny);
+  --color-unny-ink: var(--unny-ink);
   --color-warm-bg: var(--warm-bg);
   --font-display: "Fredoka", system-ui, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
