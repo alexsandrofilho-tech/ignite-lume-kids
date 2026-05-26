@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { QrCode, Home, Map, Play, Users, Heart, Sparkles, BookOpen } from "lucide-react";
+import { QrCode, Home, Map as MapIcon, Play, Users, Heart, Sparkles, BookOpen } from "lucide-react";
 import uniImg from "@/assets/char-uni.png";
 import lumeImg from "@/assets/char-lume.png";
 import risoImg from "@/assets/char-risoleta.png";
@@ -50,7 +50,7 @@ const t = {
     parentsDesc: "Check-in, avisos e calendário",
     nav: { home: "Início", journey: "Jornada", play: "Play", family: "Família" },
     portalNames: {
-      uni: "Família",
+      unny: "Família",
       lume: "Devocional",
       riso: "Aprender",
       lou: "Louvor",
@@ -78,7 +78,7 @@ const t = {
     parentsDesc: "Check-in, alerts & calendar",
     nav: { home: "Home", journey: "Journey", play: "Play", family: "Family" },
     portalNames: {
-      uni: "Family",
+      unny: "Family",
       lume: "Devotional",
       riso: "Learn",
       lou: "Worship",
@@ -89,14 +89,14 @@ const t = {
 
 function Index() {
   const [lang, setLang] = useState<Lang>("pt");
-  const [active, setActive] = useState<"uni" | "lume" | "riso" | "lou" | "lila">("lume");
+  const [active, setActive] = useState<"unny" | "lume" | "riso" | "lou" | "lila">("lume");
   const c = t[lang];
 
   const portals = [
-    { id: "uni", bg: "bg-ignition", text: "text-ignition", shadow: "shadow-ignition/40", img: uniImg, label: "UNI", theme: c.portalNames.uni },
+    { id: "unny", bg: "bg-ignition", text: "text-ignition", shadow: "shadow-ignition/40", img: uniImg, label: "UNNY", theme: c.portalNames.unny },
     { id: "lume", bg: "bg-lume", text: "text-lume", shadow: "shadow-lume/40", img: lumeImg, label: "LUME", theme: c.portalNames.lume },
-    { id: "riso", bg: "bg-riso", text: "text-riso", shadow: "shadow-riso/40", img: risoImg, label: "RISO", theme: c.portalNames.riso },
-    { id: "lou", bg: "bg-lou", text: "text-lou", shadow: "shadow-lou/40", img: louImg, label: "LOU", theme: c.portalNames.lou },
+    { id: "riso", bg: "bg-riso", text: "text-riso", shadow: "shadow-riso/40", img: risoImg, label: "RISOLETA", theme: c.portalNames.riso },
+    { id: "lou", bg: "bg-lou", text: "text-lou", shadow: "shadow-lou/40", img: louImg, label: "LOUVALDO", theme: c.portalNames.lou },
     { id: "lila", bg: "bg-lila", text: "text-lila", shadow: "shadow-lila/40", img: lilaImg, label: "LILA", theme: c.portalNames.lila },
   ] as const;
 
@@ -128,7 +128,7 @@ function Index() {
         <section className="px-6 mb-6">
           <div className="bg-white p-5 rounded-[2.5rem] shadow-xl shadow-stone-200/50 flex items-center gap-4 border border-stone-100">
             <div className="size-16 rounded-2xl bg-stone-50 outline outline-1 -outline-offset-1 outline-black/5 grid place-items-center flex-shrink-0 overflow-hidden">
-              <img src={uniImg} alt="Uni" width={64} height={64} className="size-14 object-contain" />
+              <img src={uniImg} alt="Unny" width={64} height={64} className="size-14 object-contain" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-bold text-stone-400 uppercase tracking-widest truncate">
@@ -294,7 +294,7 @@ function Index() {
         <div className="fixed bottom-6 left-6 right-6 max-w-[calc(36rem-3rem)] mx-auto h-20 bg-stone-900/90 backdrop-blur-xl rounded-[2.5rem] shadow-2xl flex items-center justify-around px-4 border border-white/10">
           {[
             { Icon: Home, label: c.nav.home, active: true },
-            { Icon: Map, label: c.nav.journey },
+            { Icon: MapIcon, label: c.nav.journey },
             { Icon: Play, label: c.nav.play },
             { Icon: Heart, label: c.nav.family },
           ].map(({ Icon, label, active: isOn }, i) => (
