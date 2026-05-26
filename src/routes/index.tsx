@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { QrCode, Home, Map, Play, Users, Heart, Sparkles, BookOpen, Music, HandHeart } from "lucide-react";
+import { QrCode, Home, Map, Play, Users, Heart, Sparkles, BookOpen } from "lucide-react";
 import uniImg from "@/assets/char-uni.png";
 import lumeImg from "@/assets/char-lume.png";
 import risoImg from "@/assets/char-risoleta.png";
