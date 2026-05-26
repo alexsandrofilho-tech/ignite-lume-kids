@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { QrCode, Home, Map as MapIcon, Play, Users, Heart, Sparkles, BookOpen } from "lucide-react";
 import uniImg from "@/assets/char-uni.png";
@@ -94,11 +94,11 @@ function Index() {
   const c = t[lang];
 
   const portals = [
-    { id: "unny", bg: "bg-unny", text: "text-unny-ink", shadow: "shadow-unny/40", img: uniImg, label: "UNNY", theme: c.portalNames.unny },
-    { id: "lume", bg: "bg-lume", text: "text-lume", shadow: "shadow-lume/40", img: lumeImg, label: "LUME", theme: c.portalNames.lume },
-    { id: "riso", bg: "bg-riso-lilac", text: "text-riso-lilac", shadow: "shadow-riso-lilac/40", img: risoImg, label: "RISOLETA", theme: c.portalNames.riso },
-    { id: "lou", bg: "bg-lou", text: "text-lou", shadow: "shadow-lou/40", img: louImg, label: "LOUVALDO", theme: c.portalNames.lou },
-    { id: "lila", bg: "bg-lila", text: "text-lila", shadow: "shadow-lila/40", img: lilaImg, label: "LILA", theme: c.portalNames.lila },
+    { id: "unny", to: "/unny", bg: "bg-unny", text: "text-unny-ink", shadow: "shadow-unny/40", img: uniImg, label: "UNNY", theme: c.portalNames.unny },
+    { id: "lume", to: "/lume", bg: "bg-lume", text: "text-lume", shadow: "shadow-lume/40", img: lumeImg, label: "LUME", theme: c.portalNames.lume },
+    { id: "riso", to: "/risoleta", bg: "bg-riso-lilac", text: "text-riso-lilac", shadow: "shadow-riso-lilac/40", img: risoImg, label: "RISOLETA", theme: c.portalNames.riso },
+    { id: "lou", to: "/louvaldo", bg: "bg-lou", text: "text-lou", shadow: "shadow-lou/40", img: louImg, label: "LOUVALDO", theme: c.portalNames.lou },
+    { id: "lila", to: "/lila", bg: "bg-lila", text: "text-lila", shadow: "shadow-lila/40", img: lilaImg, label: "LILA", theme: c.portalNames.lila },
   ] as const;
 
   return (
@@ -170,9 +170,10 @@ function Index() {
           {portals.map((p) => {
             const isActive = active === p.id;
             return (
-              <button
+              <Link
                 key={p.id}
-                onClick={() => setActive(p.id)}
+                to={p.to}
+                onMouseEnter={() => setActive(p.id)}
                 className="flex-shrink-0 flex flex-col items-center gap-2 group"
               >
                 <div
@@ -194,7 +195,7 @@ function Index() {
                 >
                   {p.label}
                 </span>
-              </button>
+              </Link>
             );
           })}
         </nav>
@@ -202,7 +203,7 @@ function Index() {
         {/* Main content cards */}
         <main className="px-6 space-y-6">
           {/* Devotional (LUME) */}
-          <div className="relative bg-gradient-to-br from-lume to-[oklch(0.55_0.22_35)] rounded-[2.5rem] p-6 text-white overflow-hidden shadow-2xl shadow-lume/30">
+          <Link to="/lume" className="block relative bg-gradient-to-br from-lume to-[oklch(0.55_0.22_35)] rounded-[2.5rem] p-6 text-white overflow-hidden shadow-2xl shadow-lume/30 hover:scale-[1.01] transition-transform">
             <div className="absolute -top-4 -right-4 size-32 bg-white/10 rounded-full blur-2xl" />
             <div className="relative z-10 max-w-[60%]">
               <span className="bg-white/20 backdrop-blur-sm text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
@@ -212,9 +213,9 @@ function Index() {
                 {c.devoTitle}
               </h3>
               <p className="text-white/80 text-sm mb-6">{c.devoDesc}</p>
-              <button className="bg-white text-lume font-display font-bold px-8 py-3 rounded-2xl shadow-lg active:scale-95 hover:scale-105 transition-transform">
+              <span className="inline-block bg-white text-lume font-display font-bold px-8 py-3 rounded-2xl shadow-lg">
                 {c.start}
-              </button>
+              </span>
             </div>
             <img
               src={lumeImg}
@@ -224,10 +225,10 @@ function Index() {
               loading="lazy"
               className="absolute -bottom-4 -right-4 size-52 object-contain drop-shadow-2xl animate-float-soft"
             />
-          </div>
+          </Link>
 
           {/* Bible Adventure (RISOLETA) */}
-          <div className="bg-white border border-stone-100 rounded-[2.5rem] p-6 shadow-xl shadow-stone-200/50">
+          <Link to="/risoleta" className="block bg-white border border-stone-100 rounded-[2.5rem] p-6 shadow-xl shadow-stone-200/50 hover:shadow-2xl transition-shadow">
             <div className="flex justify-between items-end mb-6">
               <div>
                 <h4 className="font-display font-bold text-2xl text-stone-900">{c.bibleAdv}</h4>
@@ -253,10 +254,10 @@ function Index() {
                 <span className="text-[10px] text-stone-400">{c.collectibles}</span>
               </div>
             </div>
-          </div>
+          </Link>
 
           {/* Worship (LOUVALDO) */}
-          <div className="bg-lou/10 border border-lou/20 rounded-[2.5rem] p-5 flex items-center gap-5">
+          <Link to="/louvaldo" className="bg-lou/10 border border-lou/20 rounded-[2.5rem] p-5 flex items-center gap-5 hover:bg-lou/15 transition-colors">
             <div className="size-20 bg-lou rounded-[2rem] shadow-lg shadow-lou/40 flex items-center justify-center flex-shrink-0 overflow-hidden">
               <img src={louImg} alt="Louvaldo" width={80} height={80} className="size-full object-contain p-1" loading="lazy" />
             </div>
@@ -273,13 +274,13 @@ function Index() {
                 <div className="w-1 h-3 bg-lou rounded-full animate-bounce" style={{ animationDelay: "0.4s" }} />
               </div>
             </div>
-            <button className="size-12 bg-lou rounded-full flex items-center justify-center text-white shadow-lg active:scale-95 transition-transform">
+            <span className="size-12 bg-lou rounded-full flex items-center justify-center text-white shadow-lg">
               <Play className="size-5 fill-current ml-0.5" />
-            </button>
-          </div>
+            </span>
+          </Link>
 
           {/* Weekly Mission (LILA) */}
-          <div className="bg-gradient-to-br from-lila/20 to-lila/5 border border-lila/30 rounded-[2.5rem] p-6 flex items-center gap-4">
+          <Link to="/lila" className="bg-gradient-to-br from-lila/20 to-lila/5 border border-lila/30 rounded-[2.5rem] p-6 flex items-center gap-4 hover:from-lila/30 transition-colors">
             <img src={lilaImg} alt="Lila" width={80} height={80} className="size-20 object-contain flex-shrink-0 animate-float-soft" loading="lazy" />
             <div className="flex-1">
               <p className="text-lila font-bold text-[10px] uppercase tracking-widest mb-1">
@@ -295,10 +296,10 @@ function Index() {
                 <span className="text-[10px] font-bold text-lila">1/3</span>
               </div>
             </div>
-          </div>
+          </Link>
 
-          {/* Parents Hub (UNI) */}
-          <div className="bg-unny-ink rounded-[2.5rem] p-5 flex items-center gap-4 shadow-2xl shadow-unny-ink/30 border-l-8 border-unny">
+          {/* Parents Hub (UNNY) */}
+          <Link to="/unny" className="bg-unny-ink rounded-[2.5rem] p-5 flex items-center gap-4 shadow-2xl shadow-unny-ink/30 border-l-8 border-unny hover:bg-stone-800 transition-colors">
             <div className="size-12 bg-unny rounded-2xl flex items-center justify-center flex-shrink-0">
               <Users className="size-6 text-unny-ink" strokeWidth={2.8} />
             </div>
@@ -307,7 +308,7 @@ function Index() {
               <p className="text-unny/80 text-xs">{c.parentsDesc}</p>
             </div>
             <div className="text-unny font-display font-bold text-2xl">→</div>
-          </div>
+          </Link>
         </main>
 
         {/* Bottom Nav */}
