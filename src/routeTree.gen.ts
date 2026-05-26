@@ -9,8 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnnyRouteImport } from './routes/unny'
+import { Route as RisoletaRouteImport } from './routes/risoleta'
+import { Route as LumeRouteImport } from './routes/lume'
+import { Route as LouvaldoRouteImport } from './routes/louvaldo'
+import { Route as LilaRouteImport } from './routes/lila'
 import { Route as IndexRouteImport } from './routes/index'
 
+const UnnyRoute = UnnyRouteImport.update({
+  id: '/unny',
+  path: '/unny',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RisoletaRoute = RisoletaRouteImport.update({
+  id: '/risoleta',
+  path: '/risoleta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LumeRoute = LumeRouteImport.update({
+  id: '/lume',
+  path: '/lume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LouvaldoRoute = LouvaldoRouteImport.update({
+  id: '/louvaldo',
+  path: '/louvaldo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LilaRoute = LilaRouteImport.update({
+  id: '/lila',
+  path: '/lila',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +49,83 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/lila': typeof LilaRoute
+  '/louvaldo': typeof LouvaldoRoute
+  '/lume': typeof LumeRoute
+  '/risoleta': typeof RisoletaRoute
+  '/unny': typeof UnnyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/lila': typeof LilaRoute
+  '/louvaldo': typeof LouvaldoRoute
+  '/lume': typeof LumeRoute
+  '/risoleta': typeof RisoletaRoute
+  '/unny': typeof UnnyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/lila': typeof LilaRoute
+  '/louvaldo': typeof LouvaldoRoute
+  '/lume': typeof LumeRoute
+  '/risoleta': typeof RisoletaRoute
+  '/unny': typeof UnnyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/lila' | '/louvaldo' | '/lume' | '/risoleta' | '/unny'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/lila' | '/louvaldo' | '/lume' | '/risoleta' | '/unny'
+  id: '__root__' | '/' | '/lila' | '/louvaldo' | '/lume' | '/risoleta' | '/unny'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LilaRoute: typeof LilaRoute
+  LouvaldoRoute: typeof LouvaldoRoute
+  LumeRoute: typeof LumeRoute
+  RisoletaRoute: typeof RisoletaRoute
+  UnnyRoute: typeof UnnyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unny': {
+      id: '/unny'
+      path: '/unny'
+      fullPath: '/unny'
+      preLoaderRoute: typeof UnnyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/risoleta': {
+      id: '/risoleta'
+      path: '/risoleta'
+      fullPath: '/risoleta'
+      preLoaderRoute: typeof RisoletaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lume': {
+      id: '/lume'
+      path: '/lume'
+      fullPath: '/lume'
+      preLoaderRoute: typeof LumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/louvaldo': {
+      id: '/louvaldo'
+      path: '/louvaldo'
+      fullPath: '/louvaldo'
+      preLoaderRoute: typeof LouvaldoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lila': {
+      id: '/lila'
+      path: '/lila'
+      fullPath: '/lila'
+      preLoaderRoute: typeof LilaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +138,22 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LilaRoute: LilaRoute,
+  LouvaldoRoute: LouvaldoRoute,
+  LumeRoute: LumeRoute,
+  RisoletaRoute: RisoletaRoute,
+  UnnyRoute: UnnyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
