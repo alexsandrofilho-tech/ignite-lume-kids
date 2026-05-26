@@ -6,6 +6,7 @@ import lumeImg from "@/assets/char-lume.png";
 import risoImg from "@/assets/char-risoleta.png";
 import louImg from "@/assets/char-louvaldo.png";
 import lilaImg from "@/assets/char-lila.png";
+import castHero from "@/assets/cast-hero.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -123,6 +124,25 @@ function Index() {
             <span className={lang === "en" ? "text-ignition" : ""}>EN</span>
           </button>
         </header>
+
+        {/* Cast Hero */}
+        <section className="px-6 mb-6">
+          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-stone-300/50 border border-white aspect-square">
+            <img
+              src={castHero}
+              alt="Lume, Louvaldo, Lila, Unny e Risoleta"
+              width={1024}
+              height={1024}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/70 via-black/30 to-transparent text-white">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-white/80">IGNIÇÃO</p>
+              <h2 className="font-display font-bold text-2xl leading-tight drop-shadow-lg">
+                Lume · Louvaldo · Lila · Unny · Risoleta
+              </h2>
+            </div>
+          </div>
+        </section>
 
         {/* Family Desk / Check-in */}
         <section className="px-6 mb-6">
