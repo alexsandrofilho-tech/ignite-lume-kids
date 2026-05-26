@@ -93,11 +93,11 @@ function Index() {
   const c = t[lang];
 
   const portals = [
-    { id: "uni", color: "ignition", img: uniImg, label: "UNI", theme: c.portalNames.uni, Icon: Users },
-    { id: "lume", color: "lume", img: lumeImg, label: "LUME", theme: c.portalNames.lume, Icon: Sparkles },
-    { id: "riso", color: "riso", img: risoImg, label: "RISO", theme: c.portalNames.riso, Icon: BookOpen },
-    { id: "lou", color: "lou", img: louImg, label: "LOU", theme: c.portalNames.lou, Icon: Music },
-    { id: "lila", color: "lila", img: lilaImg, label: "LILA", theme: c.portalNames.lila, Icon: HandHeart },
+    { id: "uni", bg: "bg-ignition", text: "text-ignition", shadow: "shadow-ignition/40", img: uniImg, label: "UNI", theme: c.portalNames.uni },
+    { id: "lume", bg: "bg-lume", text: "text-lume", shadow: "shadow-lume/40", img: lumeImg, label: "LUME", theme: c.portalNames.lume },
+    { id: "riso", bg: "bg-riso", text: "text-riso", shadow: "shadow-riso/40", img: risoImg, label: "RISO", theme: c.portalNames.riso },
+    { id: "lou", bg: "bg-lou", text: "text-lou", shadow: "shadow-lou/40", img: louImg, label: "LOU", theme: c.portalNames.lou },
+    { id: "lila", bg: "bg-lila", text: "text-lila", shadow: "shadow-lila/40", img: lilaImg, label: "LILA", theme: c.portalNames.lila },
   ] as const;
 
   return (
@@ -156,12 +156,9 @@ function Index() {
                 className="flex-shrink-0 flex flex-col items-center gap-2 group"
               >
                 <div
-                  className={`size-16 rounded-2xl flex items-center justify-center transition-all overflow-hidden bg-${p.color} shadow-lg group-hover:-translate-y-1 ${
-                    isActive ? "ring-4 ring-offset-2 ring-offset-warm-bg" : ""
+                  className={`size-16 rounded-2xl flex items-center justify-center transition-all overflow-hidden ${p.bg} ${p.shadow} shadow-xl group-hover:-translate-y-1 ${
+                    isActive ? "ring-4 ring-white ring-offset-2 ring-offset-warm-bg scale-105" : ""
                   }`}
-                  style={{
-                    boxShadow: `0 10px 25px -5px var(--${p.color}, oklch(0.7 0.2 38) / 0.4)`,
-                  }}
                 >
                   <img
                     src={p.img}
@@ -173,7 +170,7 @@ function Index() {
                   />
                 </div>
                 <span
-                  className={`text-[10px] font-bold uppercase tracking-widest text-${p.color}`}
+                  className={`text-[10px] font-bold uppercase tracking-widest ${p.text}`}
                 >
                   {p.label}
                 </span>
