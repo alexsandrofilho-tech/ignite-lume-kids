@@ -15,6 +15,7 @@ import { Route as LumeRouteImport } from './routes/lume'
 import { Route as LouvaldoRouteImport } from './routes/louvaldo'
 import { Route as LilaRouteImport } from './routes/lila'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LouvaldoViolaoRouteImport } from './routes/louvaldo.violao'
 import { Route as LouvaldoBateriaRouteImport } from './routes/louvaldo.bateria'
 
 const UnnyRoute = UnnyRouteImport.update({
@@ -47,6 +48,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LouvaldoViolaoRoute = LouvaldoViolaoRouteImport.update({
+  id: '/violao',
+  path: '/violao',
+  getParentRoute: () => LouvaldoRoute,
+} as any)
 const LouvaldoBateriaRoute = LouvaldoBateriaRouteImport.update({
   id: '/bateria',
   path: '/bateria',
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
+  '/louvaldo/violao': typeof LouvaldoViolaoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
+  '/louvaldo/violao': typeof LouvaldoViolaoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
+  '/louvaldo/violao': typeof LouvaldoViolaoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/risoleta'
     | '/unny'
     | '/louvaldo/bateria'
+    | '/louvaldo/violao'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/risoleta'
     | '/unny'
     | '/louvaldo/bateria'
+    | '/louvaldo/violao'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/risoleta'
     | '/unny'
     | '/louvaldo/bateria'
+    | '/louvaldo/violao'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,6 +176,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/louvaldo/violao': {
+      id: '/louvaldo/violao'
+      path: '/violao'
+      fullPath: '/louvaldo/violao'
+      preLoaderRoute: typeof LouvaldoViolaoRouteImport
+      parentRoute: typeof LouvaldoRoute
+    }
     '/louvaldo/bateria': {
       id: '/louvaldo/bateria'
       path: '/bateria'
@@ -176,10 +195,12 @@ declare module '@tanstack/react-router' {
 
 interface LouvaldoRouteChildren {
   LouvaldoBateriaRoute: typeof LouvaldoBateriaRoute
+  LouvaldoViolaoRoute: typeof LouvaldoViolaoRoute
 }
 
 const LouvaldoRouteChildren: LouvaldoRouteChildren = {
   LouvaldoBateriaRoute: LouvaldoBateriaRoute,
+  LouvaldoViolaoRoute: LouvaldoViolaoRoute,
 }
 
 const LouvaldoRouteWithChildren = LouvaldoRoute._addFileChildren(
