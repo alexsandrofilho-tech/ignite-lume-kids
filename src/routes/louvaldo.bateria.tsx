@@ -297,7 +297,7 @@ function BateriaPage() {
 function PadButton({ pad, hits, onPress }: { pad: Pad; hits: number; onPress: (id: string) => void }) {
   return (
     <motion.button
-      onPointerDown={(e) => { e.preventDefault(); onPress(pad.id); }}
+      onPointerDown={(e: React.PointerEvent) => { e.preventDefault(); onPress(pad.id); }}
       animate={{ scale: hits > 0 ? 0.9 : 1, boxShadow: hits > 0 ? "0 0 30px rgba(255,255,255,0.6)" : "0 0 0px rgba(255,255,255,0)" }}
       transition={{ duration: 0.1 }}
       className={`${pad.size} rounded-full bg-gradient-to-br ${pad.color} border-2 border-white/30 grid place-items-center text-zinc-800 font-display font-bold shadow-xl select-none touch-none`}
