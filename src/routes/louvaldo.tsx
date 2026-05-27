@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Play, Mic, Music2, Disc3, ChevronRight, Heart, ExternalLink } from "lucide-react";
+import { Play, Music2, Disc3, ChevronRight, Heart, ExternalLink } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
 import louImg from "@/assets/char-louvaldo.png";
 import { useProgress } from "@/lib/progress";
