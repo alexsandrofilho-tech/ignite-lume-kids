@@ -17,6 +17,8 @@ import { Route as LilaRouteImport } from './routes/lila'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LouvaldoViolaoRouteImport } from './routes/louvaldo.violao'
 import { Route as LouvaldoBateriaRouteImport } from './routes/louvaldo.bateria'
+import { Route as LilaQuizRouteImport } from './routes/lila.quiz'
+import { Route as LilaJornadaRouteImport } from './routes/lila.jornada'
 
 const UnnyRoute = UnnyRouteImport.update({
   id: '/unny',
@@ -58,35 +60,51 @@ const LouvaldoBateriaRoute = LouvaldoBateriaRouteImport.update({
   path: '/bateria',
   getParentRoute: () => LouvaldoRoute,
 } as any)
+const LilaQuizRoute = LilaQuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => LilaRoute,
+} as any)
+const LilaJornadaRoute = LilaJornadaRouteImport.update({
+  id: '/jornada',
+  path: '/jornada',
+  getParentRoute: () => LilaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/lila': typeof LilaRoute
+  '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
+  '/lila/jornada': typeof LilaJornadaRoute
+  '/lila/quiz': typeof LilaQuizRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
   '/louvaldo/violao': typeof LouvaldoViolaoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/lila': typeof LilaRoute
+  '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
+  '/lila/jornada': typeof LilaJornadaRoute
+  '/lila/quiz': typeof LilaQuizRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
   '/louvaldo/violao': typeof LouvaldoViolaoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/lila': typeof LilaRoute
+  '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
+  '/lila/jornada': typeof LilaJornadaRoute
+  '/lila/quiz': typeof LilaQuizRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
   '/louvaldo/violao': typeof LouvaldoViolaoRoute
 }
@@ -99,6 +117,8 @@ export interface FileRouteTypes {
     | '/lume'
     | '/risoleta'
     | '/unny'
+    | '/lila/jornada'
+    | '/lila/quiz'
     | '/louvaldo/bateria'
     | '/louvaldo/violao'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +129,8 @@ export interface FileRouteTypes {
     | '/lume'
     | '/risoleta'
     | '/unny'
+    | '/lila/jornada'
+    | '/lila/quiz'
     | '/louvaldo/bateria'
     | '/louvaldo/violao'
   id:
@@ -119,13 +141,15 @@ export interface FileRouteTypes {
     | '/lume'
     | '/risoleta'
     | '/unny'
+    | '/lila/jornada'
+    | '/lila/quiz'
     | '/louvaldo/bateria'
     | '/louvaldo/violao'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LilaRoute: typeof LilaRoute
+  LilaRoute: typeof LilaRouteWithChildren
   LouvaldoRoute: typeof LouvaldoRouteWithChildren
   LumeRoute: typeof LumeRoute
   RisoletaRoute: typeof RisoletaRoute
@@ -190,8 +214,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LouvaldoBateriaRouteImport
       parentRoute: typeof LouvaldoRoute
     }
+    '/lila/quiz': {
+      id: '/lila/quiz'
+      path: '/quiz'
+      fullPath: '/lila/quiz'
+      preLoaderRoute: typeof LilaQuizRouteImport
+      parentRoute: typeof LilaRoute
+    }
+    '/lila/jornada': {
+      id: '/lila/jornada'
+      path: '/jornada'
+      fullPath: '/lila/jornada'
+      preLoaderRoute: typeof LilaJornadaRouteImport
+      parentRoute: typeof LilaRoute
+    }
   }
 }
+
+interface LilaRouteChildren {
+  LilaJornadaRoute: typeof LilaJornadaRoute
+  LilaQuizRoute: typeof LilaQuizRoute
+}
+
+const LilaRouteChildren: LilaRouteChildren = {
+  LilaJornadaRoute: LilaJornadaRoute,
+  LilaQuizRoute: LilaQuizRoute,
+}
+
+const LilaRouteWithChildren = LilaRoute._addFileChildren(LilaRouteChildren)
 
 interface LouvaldoRouteChildren {
   LouvaldoBateriaRoute: typeof LouvaldoBateriaRoute
@@ -209,7 +259,7 @@ const LouvaldoRouteWithChildren = LouvaldoRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LilaRoute: LilaRoute,
+  LilaRoute: LilaRouteWithChildren,
   LouvaldoRoute: LouvaldoRouteWithChildren,
   LumeRoute: LumeRoute,
   RisoletaRoute: RisoletaRoute,
