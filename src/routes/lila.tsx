@@ -20,7 +20,7 @@ export const Route = createFileRoute("/lila")({
 });
 
 function LilaHome() {
-  const { progress, bumpStreak } = useProgress();
+  const { progress } = useProgress();
   const { isDone } = useMissions();
   const weekday = new Date().getDay();
   const date = todayISO();
@@ -127,12 +127,6 @@ function LilaHome() {
           </p>
         </div>
       </section>
-
-      <button
-        onClick={() => bumpStreak("lila:daily")}
-        className="hidden"
-        aria-hidden
-      />
 
       <LilaBottomNav />
     </CharWorld>
