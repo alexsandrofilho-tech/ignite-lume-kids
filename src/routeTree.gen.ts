@@ -19,6 +19,7 @@ import { Route as LouvaldoViolaoRouteImport } from './routes/louvaldo.violao'
 import { Route as LouvaldoBateriaRouteImport } from './routes/louvaldo.bateria'
 import { Route as LilaRankingRouteImport } from './routes/lila.ranking'
 import { Route as LilaQuizRouteImport } from './routes/lila.quiz'
+import { Route as LilaPerfilRouteImport } from './routes/lila.perfil'
 import { Route as LilaJornadaRouteImport } from './routes/lila.jornada'
 
 const UnnyRoute = UnnyRouteImport.update({
@@ -71,6 +72,11 @@ const LilaQuizRoute = LilaQuizRouteImport.update({
   path: '/quiz',
   getParentRoute: () => LilaRoute,
 } as any)
+const LilaPerfilRoute = LilaPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => LilaRoute,
+} as any)
 const LilaJornadaRoute = LilaJornadaRouteImport.update({
   id: '/jornada',
   path: '/jornada',
@@ -85,6 +91,7 @@ export interface FileRoutesByFullPath {
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
+  '/lila/perfil': typeof LilaPerfilRoute
   '/lila/quiz': typeof LilaQuizRoute
   '/lila/ranking': typeof LilaRankingRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
@@ -98,6 +105,7 @@ export interface FileRoutesByTo {
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
+  '/lila/perfil': typeof LilaPerfilRoute
   '/lila/quiz': typeof LilaQuizRoute
   '/lila/ranking': typeof LilaRankingRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
@@ -112,6 +120,7 @@ export interface FileRoutesById {
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
+  '/lila/perfil': typeof LilaPerfilRoute
   '/lila/quiz': typeof LilaQuizRoute
   '/lila/ranking': typeof LilaRankingRoute
   '/louvaldo/bateria': typeof LouvaldoBateriaRoute
@@ -127,6 +136,7 @@ export interface FileRouteTypes {
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
+    | '/lila/perfil'
     | '/lila/quiz'
     | '/lila/ranking'
     | '/louvaldo/bateria'
@@ -140,6 +150,7 @@ export interface FileRouteTypes {
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
+    | '/lila/perfil'
     | '/lila/quiz'
     | '/lila/ranking'
     | '/louvaldo/bateria'
@@ -153,6 +164,7 @@ export interface FileRouteTypes {
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
+    | '/lila/perfil'
     | '/lila/quiz'
     | '/lila/ranking'
     | '/louvaldo/bateria'
@@ -240,6 +252,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LilaQuizRouteImport
       parentRoute: typeof LilaRoute
     }
+    '/lila/perfil': {
+      id: '/lila/perfil'
+      path: '/perfil'
+      fullPath: '/lila/perfil'
+      preLoaderRoute: typeof LilaPerfilRouteImport
+      parentRoute: typeof LilaRoute
+    }
     '/lila/jornada': {
       id: '/lila/jornada'
       path: '/jornada'
@@ -252,12 +271,14 @@ declare module '@tanstack/react-router' {
 
 interface LilaRouteChildren {
   LilaJornadaRoute: typeof LilaJornadaRoute
+  LilaPerfilRoute: typeof LilaPerfilRoute
   LilaQuizRoute: typeof LilaQuizRoute
   LilaRankingRoute: typeof LilaRankingRoute
 }
 
 const LilaRouteChildren: LilaRouteChildren = {
   LilaJornadaRoute: LilaJornadaRoute,
+  LilaPerfilRoute: LilaPerfilRoute,
   LilaQuizRoute: LilaQuizRoute,
   LilaRankingRoute: LilaRankingRoute,
 }
