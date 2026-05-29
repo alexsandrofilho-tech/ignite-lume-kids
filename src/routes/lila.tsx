@@ -6,7 +6,7 @@ import lilaImg from "@/assets/char-lila.png";
 import { useProgress } from "@/lib/progress";
 import {
   WEEKLY_MISSIONS, CATEGORY_META, useMissions, todayISO, DAYS_PT_FULL,
-  levelInfo,
+  levelInfo, isFullDayComplete, isoForWeekday, dayXP,
 } from "@/lib/missions";
 
 export const Route = createFileRoute("/lila")({
@@ -28,8 +28,14 @@ function LilaHome() {
   const featured = missions.find((m) => !isDone(date, m.id)) || missions[0];
   const meta = CATEGORY_META[featured.category];
   const streak = progress.streaks["lila:daily"]?.count || 0;
+  const shield = streak >= 7;
   const lvl = levelInfo(progress.xp);
   const doneCount = missions.filter((m) => isDone(date, m.id)).length;
+  const totalToday = dayXP(weekday);
+  let weekDone = 0;
+  for (let d = 0; d <= weekday; d++) if (isFullDayComplete(isoForWeekday(d), d)) weekDone++;
+  const hour = new Date().getHours();
+  const greet = hour < 12 ? "Bom dia" : hour < 18 ? "Boa tarde" : "Boa noite";
 
   return (
     <CharWorld
@@ -50,8 +56,21 @@ function LilaHome() {
           {DAYS_PT_FULL[weekday]}
         </p>
         <h2 className="font-display font-bold text-3xl leading-tight mt-1">
-          Oi! Vamos espalhar bondade hoje?
+          {greet}, amigo(a) 👋
         </h2>
+        <div className="mt-3 rounded-2xl bg-white/70 border border-[oklch(0.45_0.08_55)]/10 p-3">
+          <div className="flex items-center justify-between text-[11px] font-bold text-[oklch(0.45_0.08_55)]">
+            <span>Semana</span><span>{weekDone} de 7 dias</span>
+          </div>
+          <div className="h-2 rounded-full bg-[oklch(0.93_0.04_70)] overflow-hidden mt-2">
+            <div className="h-full bg-gradient-to-r from-[oklch(0.86_0.14_85)] to-[oklch(0.55_0.10_55)]" style={{ width: `${(weekDone / 7) * 100}%` }} />
+          </div>
+          <div className="mt-2 flex items-center gap-3 text-[11px] font-bold">
+            <span className="inline-flex items-center gap-1 text-[oklch(0.65_0.20_30)]"><Flame className="size-3.5" />{streak}d</span>
+            <span className="inline-flex items-center gap-1 text-[oklch(0.55_0.18_85)]">⭐ {progress.xp} XP</span>
+            {shield && <span className="inline-flex items-center gap-1 text-[oklch(0.45_0.08_55)]">🛡️ Escudo</span>}
+          </div>
+        </div>
       </section>
 
       {/* Streak + Level */}
@@ -96,9 +115,9 @@ function LilaHome() {
           </div>
           <div className="mt-4 flex items-center gap-3">
             <div className="flex-1 h-2 rounded-full bg-white/15 overflow-hidden">
-              <div className="h-full bg-[oklch(0.86_0.10_70)]" style={{ width: `${(doneCount / 5) * 100}%` }} />
+              <div className="h-full bg-[oklch(0.86_0.10_70)]" style={{ width: `${(doneCount / missions.length) * 100}%` }} />
             </div>
-            <span className="text-xs font-bold">{doneCount}/5 hoje</span>
+            <span className="text-xs font-bold">{doneCount}/{missions.length} · +{totalToday} XP</span>
           </div>
         </Link>
       </section>

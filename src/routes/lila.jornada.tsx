@@ -6,7 +6,7 @@ import { LilaBottomNav } from "@/components/lila/BottomNav";
 import { useProgress } from "@/lib/progress";
 import {
   WEEKLY_MISSIONS, CATEGORY_META, DAYS_PT, DAYS_PT_FULL,
-  useMissions, isoForWeekday, todayISO, maybeGrantFullDayBonus, FULL_DAY_BONUS,
+  useMissions, isoForWeekday, todayISO, maybeGrantFullDayBonus, FULL_DAY_BONUS, dayXP,
 } from "@/lib/missions";
 
 export const Route = createFileRoute("/lila/jornada")({
@@ -31,6 +31,8 @@ function JornadaPage() {
   const missions = WEEKLY_MISSIONS[selected];
   const doneCount = missions.filter((m) => isDone(dateISO, m.id)).length;
   const locked = selected > today; // future days locked
+  const totalXP = dayXP(selected);
+  const [confetti, setConfetti] = useState(false);
 
   function complete(missionId: string, xp: number) {
     if (!isToday || isDone(dateISO, missionId)) return;
@@ -40,6 +42,10 @@ function JornadaPage() {
     const granted = maybeGrantFullDayBonus(dateISO, selected, (n) => addXP(n, "lila"));
     setToast(granted ? `+${xp} XP · BÔNUS Dia Completo +${FULL_DAY_BONUS} XP!` : `+${xp} XP`);
     setTimeout(() => setToast(null), 2200);
+    if (granted) {
+      setConfetti(true);
+      setTimeout(() => setConfetti(false), 2500);
+    }
   }
 
   return (
@@ -92,7 +98,7 @@ function JornadaPage() {
         </div>
         <div className="text-right">
           <p className="text-[10px] font-bold uppercase tracking-widest text-[oklch(0.45_0.08_55)]/70">Progresso</p>
-          <p className="font-display font-bold text-lg">{doneCount}/5</p>
+          <p className="font-display font-bold text-lg">{doneCount}/{missions.length} · +{totalXP} XP</p>
         </div>
       </section>
 
@@ -167,7 +173,7 @@ function JornadaPage() {
       </section>
 
       {/* Full day bonus banner */}
-      {doneCount === 5 && (
+      {doneCount === missions.length && (
         <section className="px-6 mt-5">
           <div className="rounded-3xl bg-gradient-to-r from-[oklch(0.86_0.14_85)] to-[oklch(0.78_0.16_70)] text-[oklch(0.22_0.04_55)] p-4 text-center font-display font-bold">
             ✨ Dia Completo! +{FULL_DAY_BONUS} XP de bônus
@@ -176,6 +182,23 @@ function JornadaPage() {
       )}
 
       <div className="h-28" />
+
+      {confetti && (
+        <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+          {Array.from({ length: 28 }).map((_, i) => (
+            <span
+              key={i}
+              className="absolute top-0 size-2 rounded-sm animate-confetti-fall"
+              style={{
+                left: `${(i * 37) % 100}%`,
+                background: i % 3 === 0 ? "oklch(0.86 0.14 85)" : i % 3 === 1 ? "oklch(0.65 0.18 310)" : "oklch(0.78 0.16 70)",
+                animationDelay: `${(i % 10) * 80}ms`,
+                transform: `rotate(${i * 23}deg)`,
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {toast && (
         <div className="fixed bottom-28 inset-x-0 flex justify-center z-50 px-4 pointer-events-none">

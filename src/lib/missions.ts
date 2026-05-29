@@ -3,14 +3,16 @@
 
 import { useEffect, useState, useCallback } from "react";
 
-export type MissionCategory = "prayer" | "reading" | "quiz" | "reflection" | "community";
+export type MissionCategory =
+  | "prayer" | "reading" | "quiz" | "reflection" | "community" | "challenge";
 
 export const CATEGORY_META: Record<MissionCategory, { label: string; emoji: string; xp: number; color: string }> = {
   prayer:     { label: "Oração",     emoji: "🙏", xp: 10, color: "oklch(0.65 0.15 30)" },
   reading:    { label: "Bíblia",     emoji: "📖", xp: 15, color: "oklch(0.55 0.12 250)" },
   quiz:       { label: "Quiz",       emoji: "❓", xp: 20, color: "oklch(0.65 0.18 310)" },
   reflection: { label: "Reflexão",   emoji: "✍️", xp: 10, color: "oklch(0.70 0.15 150)" },
-  community:  { label: "Comunidade", emoji: "🤝", xp: 15, color: "oklch(0.70 0.15 60)" },
+  community:  { label: "Comunidade", emoji: "🤝", xp: 10, color: "oklch(0.70 0.15 60)" },
+  challenge:  { label: "Desafio",    emoji: "🎯", xp: 15, color: "oklch(0.65 0.18 85)"  },
 };
 
 export const FULL_DAY_BONUS = 25;
@@ -20,59 +22,57 @@ export type Mission = {
   category: MissionCategory;
   title: string;
   detail?: string;
+  xp: number;
 };
 
 export const WEEKLY_MISSIONS: Record<number, Mission[]> = {
   0: [
-    { id: "sun-prayer",    category: "prayer",     title: "Ore por 5 minutos",            detail: "Encontre um lugar tranquilo e converse com Deus." },
-    { id: "sun-reading",   category: "reading",    title: "Leia Salmo 23",                detail: "O Senhor é meu pastor, nada me faltará." },
-    { id: "sun-quiz",      category: "quiz",       title: "Quiz: Salmo 23",               detail: "3 perguntas rápidas sobre a leitura." },
-    { id: "sun-reflection",category: "reflection", title: "O que Deus te falou hoje?",    detail: "Escreva uma frase sobre a leitura." },
-    { id: "sun-community", category: "community",  title: "Encoraje alguém no app",       detail: "Mande uma palavra boa pra um amigo." },
+    { id: "sun-prayer",     category: "prayer",     xp: 10, title: "Oração da manhã (5 min)",      detail: "Encontre um lugar tranquilo e converse com Deus." },
+    { id: "sun-reading",    category: "reading",    xp: 15, title: "Leia Salmo 23",                detail: "O Senhor é meu pastor, nada me faltará." },
+    { id: "sun-quiz",       category: "quiz",       xp: 20, title: "Quiz: Salmo 23",               detail: "3 perguntas sobre a leitura de hoje." },
+    { id: "sun-reflection", category: "reflection", xp: 10, title: "Reflexão: a guia de Deus",     detail: "O que a guia de Deus significa pra você?" },
   ],
   1: [
-    { id: "mon-prayer",    category: "prayer",     title: "Escreva uma oração de gratidão", detail: "Liste 3 coisas pelas quais você é grato." },
-    { id: "mon-reading",   category: "reading",    title: "Leia Mateus 5",                  detail: "As bem-aventuranças de Jesus." },
-    { id: "mon-quiz",      category: "quiz",       title: "Quiz: Mateus 5",                 detail: "3 perguntas sobre as bem-aventuranças." },
-    { id: "mon-reflection",category: "reflection", title: "Qual bem-aventurança te marcou?", detail: "Escreva sua reflexão." },
-    { id: "mon-community", category: "community",  title: "Convide alguém pra orar",        detail: "Chame um amigo pra orar com você." },
+    { id: "mon-prayer",     category: "prayer",     xp: 10, title: "Ore por alguém que você ama",  detail: "Lembre dessa pessoa pelo nome." },
+    { id: "mon-reading",    category: "reading",    xp: 15, title: "Leia Mateus 5:1–12",           detail: "As Bem-aventuranças de Jesus." },
+    { id: "mon-quiz",       category: "quiz",       xp: 20, title: "Quiz: Bem-aventuranças",       detail: "3 perguntas sobre Mateus 5." },
+    { id: "mon-community",  category: "community",  xp: 10, title: "Encoraje alguém da comunidade", detail: "Envie uma palavra boa pra um amigo." },
   ],
   2: [
-    { id: "tue-prayer",    category: "prayer",     title: "Ore por alguém que conhece",     detail: "Pense numa pessoa e ore pelo nome dela." },
-    { id: "tue-reading",   category: "reading",    title: "Leia Provérbios 3",              detail: "Confia no Senhor de todo o teu coração." },
-    { id: "tue-quiz",      category: "quiz",       title: "Quiz: Provérbios 3",             detail: "3 perguntas sobre sabedoria." },
-    { id: "tue-reflection",category: "reflection", title: "Onde você precisa confiar mais?", detail: "Escreva uma área da sua vida." },
-    { id: "tue-community", category: "community",  title: "Diga 'obrigado' pra alguém",     detail: "Reconheça alguém que te ajudou." },
+    { id: "tue-prayer",     category: "prayer",     xp: 10, title: "Escreva uma oração de gratidão", detail: "Liste 3 coisas pelas quais você é grato." },
+    { id: "tue-reading",    category: "reading",    xp: 15, title: "Leia Provérbios 3:1–10",       detail: "Confia no Senhor de todo o teu coração." },
+    { id: "tue-quiz",       category: "quiz",       xp: 20, title: "Quiz: Provérbios 3",           detail: "3 perguntas sobre sabedoria." },
+    { id: "tue-reflection", category: "reflection", xp: 10, title: "Reflexão: confiança",          detail: "Onde você precisa confiar mais em Deus?" },
   ],
   3: [
-    { id: "wed-prayer",    category: "prayer",     title: "Ore 5 minutos pela família",     detail: "Lembre de cada pessoa da sua casa." },
-    { id: "wed-reading",   category: "reading",    title: "Leia João 3",                    detail: "Porque Deus amou o mundo de tal maneira..." },
-    { id: "wed-quiz",      category: "quiz",       title: "Quiz: João 3",                   detail: "3 perguntas sobre o amor de Deus." },
-    { id: "wed-reflection",category: "reflection", title: "Como o amor de Deus te alcança?", detail: "Escreva o que sente." },
-    { id: "wed-community", category: "community",  title: "Encoraje alguém no app",         detail: "Deixe um recado positivo." },
+    { id: "wed-prayer",     category: "prayer",     xp: 10, title: "Oração de intercessão",        detail: "Ore pelo meio da semana de alguém." },
+    { id: "wed-reading",    category: "reading",    xp: 15, title: "Leia João 15:1–17",            detail: "A Videira Verdadeira." },
+    { id: "wed-quiz",       category: "quiz",       xp: 20, title: "Quiz: João 15",                detail: "3 perguntas sobre a Videira." },
+    { id: "wed-challenge",  category: "challenge",  xp: 15, title: "Desafio: memorize João 15:5",  detail: "Repita até saber de cor." },
   ],
   4: [
-    { id: "thu-prayer",    category: "prayer",     title: "Ore com palavras suas",          detail: "Sem ler nada, fale com Deus." },
-    { id: "thu-reading",   category: "reading",    title: "Leia Salmo 91",                  detail: "Aquele que habita no esconderijo do Altíssimo." },
-    { id: "thu-quiz",      category: "quiz",       title: "Quiz: Salmo 91",                 detail: "3 perguntas sobre proteção." },
-    { id: "thu-reflection",category: "reflection", title: "Onde Deus te protegeu hoje?",    detail: "Anote um momento de cuidado." },
-    { id: "thu-community", category: "community",  title: "Compartilhe um versículo",       detail: "Mande um versículo pra um amigo." },
+    { id: "thu-prayer",     category: "prayer",     xp: 10, title: "Ore pela sua igreja",          detail: "Lembre dos líderes e amigos." },
+    { id: "thu-reading",    category: "reading",    xp: 15, title: "Leia Romanos 8:28–39",         detail: "Nada nos separa do amor de Deus." },
+    { id: "thu-quiz",       category: "quiz",       xp: 20, title: "Quiz: Romanos 8",              detail: "3 perguntas sobre a passagem." },
+    { id: "thu-reflection", category: "reflection", xp: 10, title: "Reflexão: o amor de Deus",     detail: "Como isso te faz sentir?" },
   ],
   5: [
-    { id: "fri-prayer",    category: "prayer",     title: "Ore por alguém em necessidade",  detail: "Pense em quem precisa de força." },
-    { id: "fri-reading",   category: "reading",    title: "Leia 1 Coríntios 13",            detail: "O capítulo do amor." },
-    { id: "fri-quiz",      category: "quiz",       title: "Quiz: 1 Coríntios 13",           detail: "3 perguntas sobre o amor." },
-    { id: "fri-reflection",category: "reflection", title: "Como você pode amar melhor?",    detail: "Escreva uma atitude prática." },
-    { id: "fri-community", category: "community",  title: "Ajude alguém da sua família",    detail: "Faça algo bom em casa." },
+    { id: "fri-prayer",     category: "prayer",     xp: 10, title: "Oração de louvor",             detail: "Cante ou fale gratidão em voz alta." },
+    { id: "fri-reading",    category: "reading",    xp: 15, title: "Leia Lucas 15:11–32",          detail: "A parábola do Filho Pródigo." },
+    { id: "fri-quiz",       category: "quiz",       xp: 20, title: "Quiz: Filho Pródigo",          detail: "3 perguntas sobre a parábola." },
+    { id: "fri-community",  category: "community",  xp: 10, title: "Compartilhe um aprendizado",   detail: "Conte a alguém o que aprendeu." },
   ],
   6: [
-    { id: "sat-prayer",    category: "prayer",     title: "Ore pela igreja",                detail: "Lembre dos líderes e amigos." },
-    { id: "sat-reading",   category: "reading",    title: "Leia Filipenses 4",              detail: "Alegrai-vos sempre no Senhor." },
-    { id: "sat-quiz",      category: "quiz",       title: "Quiz: Filipenses 4",             detail: "3 perguntas sobre alegria e paz." },
-    { id: "sat-reflection",category: "reflection", title: "O que te deu alegria hoje?",     detail: "Anote um motivo de alegria." },
-    { id: "sat-community", category: "community",  title: "Encoraje alguém no app",         detail: "Mande uma palavra de fé." },
+    { id: "sat-prayer",     category: "prayer",     xp: 10, title: "Oração de descanso",           detail: "Pause, respire e fale com Deus." },
+    { id: "sat-reading",    category: "reading",    xp: 15, title: "Leia Filipenses 4:4–13",       detail: "Alegrai-vos sempre no Senhor." },
+    { id: "sat-quiz",       category: "quiz",       xp: 20, title: "Quiz: Filipenses 4",           detail: "3 perguntas sobre alegria e paz." },
+    { id: "sat-reflection", category: "reflection", xp: 15, title: "Revisão da semana",            detail: "Qual foi seu maior insight espiritual?" },
   ],
 };
+
+export function dayXP(weekday: number) {
+  return WEEKLY_MISSIONS[weekday].reduce((s, m) => s + m.xp, 0);
+}
 
 export type QuizQuestion = { q: string; options: string[]; correct: number };
 
@@ -199,6 +199,13 @@ export function isFullDayComplete(dateISO: string, weekday: number) {
   const done = cur.completed[dateISO] || [];
   const ids = WEEKLY_MISSIONS[weekday].map((m) => m.id);
   return ids.every((id) => done.includes(id));
+}
+
+export function isPerfectWeek() {
+  for (let d = 0; d < 7; d++) {
+    if (!isFullDayComplete(isoForWeekday(d), d)) return false;
+  }
+  return true;
 }
 
 export function maybeGrantFullDayBonus(dateISO: string, weekday: number, addXP: (n: number) => void) {
