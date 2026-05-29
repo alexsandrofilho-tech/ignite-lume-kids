@@ -4,7 +4,7 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap");
 
 /*
  * Design system definition.
@@ -71,14 +71,14 @@
   --color-unny-ink: var(--unny-ink);
   --color-warm-bg: var(--warm-bg);
   --font-display: "Fredoka", system-ui, sans-serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Nunito", system-ui, sans-serif;
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(0.985 0.008 60);
-  --warm-bg: oklch(0.985 0.008 60);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 1rem;
+  --background: oklch(0.985 0.02 230);
+  --warm-bg: oklch(0.985 0.02 230);
+  --foreground: oklch(0.22 0.06 270);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
@@ -110,16 +110,15 @@
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
 
-  /* IGNIÇÃO character palette */
-  /* Official character colors */
-  --ignition: oklch(0.72 0.19 50);          /* warm orange brand accent */
-  --lume: oklch(0.72 0.19 50);              /* Lume — Orange */
-  --lou: oklch(0.68 0.18 145);              /* Louvaldo — Green */
-  --lila: oklch(0.45 0.08 55);              /* Lila — Brown */
-  --unny: oklch(0.85 0.17 92);              /* Unny — Yellow */
-  --unny-ink: oklch(0.22 0.02 60);          /* Unny — Black */
-  --riso: oklch(0.86 0.17 92);              /* Risoleta — Yellow */
-  --riso-lilac: oklch(0.72 0.15 310);       /* Risoleta — Lilac */
+  /* IGNIÇÃO character palette — vibrant kid-friendly */
+  --ignition: oklch(0.74 0.21 45);
+  --lume: oklch(0.74 0.21 45);
+  --lou: oklch(0.72 0.21 150);
+  --lila: oklch(0.58 0.16 35);
+  --unny: oklch(0.88 0.19 95);
+  --unny-ink: oklch(0.25 0.04 280);
+  --riso: oklch(0.88 0.19 95);
+  --riso-lilac: oklch(0.70 0.19 315);
 }
 
 .dark {
@@ -180,4 +179,49 @@
     50% { transform: translateY(-6px) rotate(-2deg); }
   }
   .animate-float-soft { animation: float-soft 4s ease-in-out infinite; }
+
+  @keyframes wobble-soft {
+    0%, 100% { transform: rotate(-2deg) scale(1); }
+    50% { transform: rotate(2deg) scale(1.03); }
+  }
+  .animate-wobble-soft { animation: wobble-soft 3.5s ease-in-out infinite; }
+
+  @keyframes sparkle-drift {
+    0% { transform: translateY(0) translateX(0); opacity: 0.35; }
+    50% { transform: translateY(-20px) translateX(10px); opacity: 0.7; }
+    100% { transform: translateY(0) translateX(0); opacity: 0.35; }
+  }
+
+  @keyframes shimmer-bg {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Playful animated backdrop applied app-wide via body */
+  body {
+    background-image:
+      radial-gradient(circle at 12% 8%,  oklch(0.92 0.12 60 / 0.55) 0, transparent 38%),
+      radial-gradient(circle at 88% 18%, oklch(0.90 0.14 320 / 0.45) 0, transparent 42%),
+      radial-gradient(circle at 78% 92%, oklch(0.88 0.16 150 / 0.45) 0, transparent 45%),
+      radial-gradient(circle at 6% 96%,  oklch(0.90 0.14 230 / 0.50) 0, transparent 45%),
+      linear-gradient(180deg, oklch(0.99 0.02 230) 0%, oklch(0.97 0.03 60) 100%);
+    background-attachment: fixed;
+    background-size: 100% 100%;
+  }
+
+  /* Sprinkle dot pattern overlay for playful texture */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(oklch(0.74 0.21 45 / 0.18) 1.5px, transparent 2px),
+      radial-gradient(oklch(0.70 0.19 315 / 0.14) 1.5px, transparent 2px);
+    background-size: 28px 28px, 44px 44px;
+    background-position: 0 0, 14px 14px;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+  }
+  body > * { position: relative; z-index: 1; }
 }
