@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CheckCircle2, XCircle, RotateCcw, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CharWorld } from "@/components/CharWorld";
 import { LilaBottomNav } from "@/components/lila/BottomNav";
 import { useProgress } from "@/lib/progress";
@@ -34,8 +34,25 @@ function QuizPage() {
   const [score, setScore] = useState(0);
   const [finished, setFinished] = useState(false);
   const [bonusGranted, setBonusGranted] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(10);
 
   const q = questions[step];
+
+  useEffect(() => {
+    if (finished || picked !== null) return;
+    setTimeLeft(10);
+    const id = setInterval(() => {
+      setTimeLeft((t) => {
+        if (t <= 1) {
+          clearInterval(id);
+          setPicked(-1); // timeout = wrong
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    return () => clearInterval(id);
+  }, [step, finished, picked]);
 
   function choose(i: number) {
     if (picked !== null) return;
@@ -80,15 +97,20 @@ function QuizPage() {
 
       {!finished ? (
         <section className="px-6 mt-5">
-          {/* Progress */}
+          {/* Progress + Timer */}
           <div className="flex items-center gap-3 mb-4">
             <div className="flex-1 h-2 rounded-full bg-white/60 overflow-hidden">
               <div className="h-full bg-[oklch(0.45_0.08_55)] transition-all" style={{ width: `${((step) / questions.length) * 100}%` }} />
             </div>
             <span className="text-xs font-bold text-[oklch(0.45_0.08_55)]">{step + 1}/{questions.length}</span>
+            <span className={`size-9 grid place-items-center rounded-full font-display font-bold text-sm tabular-nums ${
+              timeLeft <= 3 ? "bg-[oklch(0.60_0.20_25)] text-white animate-pulse" : "bg-[oklch(0.22_0.04_55)] text-[oklch(0.86_0.10_70)]"
+            }`}>{timeLeft}</span>
           </div>
 
-          <div className="rounded-[2rem] bg-[oklch(0.22_0.04_55)] text-[oklch(0.97_0.02_70)] p-5">
+          <div className={`rounded-[2rem] bg-[oklch(0.22_0.04_55)] text-[oklch(0.97_0.02_70)] p-5 ${
+            picked !== null && picked !== q.correct ? "animate-shake" : ""
+          } ${picked === q.correct ? "ring-4 ring-[oklch(0.65_0.18_150)]/60" : ""}`}>
             <p className="text-[10px] font-bold uppercase tracking-widest text-[oklch(0.86_0.10_70)]">Pergunta {step + 1}</p>
             <p className="font-display font-bold text-xl leading-tight mt-1">{q.q}</p>
 
@@ -124,13 +146,18 @@ function QuizPage() {
             </div>
 
             {picked !== null && (
-              <button
-                onClick={next}
-                className="mt-4 w-full bg-[oklch(0.86_0.10_70)] text-[oklch(0.22_0.04_55)] font-display font-bold py-3 rounded-2xl flex items-center justify-center gap-2 active:scale-[0.99]"
-              >
-                {step + 1 < questions.length ? "Próxima" : "Ver resultado"}
-                <ArrowRight className="size-4" />
-              </button>
+              <>
+                <p className="mt-4 text-center text-xs font-bold text-[oklch(0.86_0.10_70)]">
+                  {picked === -1 ? "⏰ Tempo esgotado!" : picked === q.correct ? "✅ Boa!" : "❌ Resposta certa em verde"}
+                </p>
+                <button
+                  onClick={next}
+                  className="mt-3 w-full bg-[oklch(0.86_0.10_70)] text-[oklch(0.22_0.04_55)] font-display font-bold py-3 rounded-2xl flex items-center justify-center gap-2 active:scale-[0.99]"
+                >
+                  {step + 1 < questions.length ? "Próxima" : "Ver resultado"}
+                  <ArrowRight className="size-4" />
+                </button>
+              </>
             )}
           </div>
         </section>

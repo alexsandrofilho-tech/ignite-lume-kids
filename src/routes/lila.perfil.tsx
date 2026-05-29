@@ -4,7 +4,7 @@ import { CharWorld } from "@/components/CharWorld";
 import { LilaBottomNav } from "@/components/lila/BottomNav";
 import { useProgress } from "@/lib/progress";
 import {
-  WEEKLY_MISSIONS, useMissions, isoForWeekday, levelInfo, LEVELS, CATEGORY_META,
+  WEEKLY_MISSIONS, useMissions, isoForWeekday, levelInfo, LEVELS, CATEGORY_META, isPerfectWeek,
 } from "@/lib/missions";
 import lilaImg from "@/assets/char-lila.png";
 
@@ -38,7 +38,8 @@ function PerfilPage() {
   const badges = [
     { id: "first-mission", label: "1ª Missão", icon: "🌱", unlocked: totalDone >= 1 },
     { id: "streak-3",      label: "3 Dias",   icon: "🔥", unlocked: streak >= 3 },
-    { id: "streak-7",      label: "Semana",   icon: "🏅", unlocked: streak >= 7 },
+    { id: "shield",        label: "Escudo",   icon: "🛡️", unlocked: streak >= 7 },
+    { id: "perfect-week",  label: "Semana Perfeita", icon: "🏆", unlocked: isPerfectWeek() },
     { id: "level-2",       label: "Discípulo",icon: "📖", unlocked: progress.xp >= 100 },
     { id: "level-3",       label: "Fiel",     icon: "⚔️", unlocked: progress.xp >= 300 },
     { id: "champ",         label: "Campeão",  icon: "👑", unlocked: progress.xp >= 1500 },
