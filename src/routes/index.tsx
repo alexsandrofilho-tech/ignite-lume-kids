@@ -6,7 +6,7 @@ import lumeImg from "@/assets/char-lume.png";
 import risoImg from "@/assets/char-risoleta.png";
 import louImg from "@/assets/char-louvaldo.png";
 import lilaImg from "@/assets/char-lila.png";
-import castHero from "@/assets/cast-hero.png";
+import castHero from "@/assets/cast-hero.png.asset.json";
 import ciaLogo from "@/assets/cia-do-lume.png.asset.json";
 
 export const Route = createFileRoute("/")({
@@ -129,7 +129,7 @@ function Index() {
         <section className="px-6 mb-6">
           <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-stone-300/50 border border-white aspect-square">
             <img
-              src={castHero}
+              src={castHero.url}
               alt="Lume, Louvaldo, Lila, Unny e Risoleta"
               width={1024}
               height={1024}
