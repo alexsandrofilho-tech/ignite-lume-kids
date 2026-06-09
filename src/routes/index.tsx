@@ -7,6 +7,7 @@ import risoImg from "@/assets/char-risoleta.png";
 import louImg from "@/assets/char-louvaldo.png";
 import lilaImg from "@/assets/char-lila.png";
 import castHero from "@/assets/cast-hero.png";
+import ciaLogo from "@/assets/cia-do-lume.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -106,14 +107,13 @@ function Index() {
       <div className="mx-auto max-w-xl">
         {/* Header */}
         <header className="p-6 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="size-12 bg-ignition rounded-2xl rotate-3 shadow-lg shadow-ignition/30 flex items-center justify-center">
-              <span className="font-display font-bold text-white text-2xl tracking-tight">I!</span>
-            </div>
-            <h1 className="font-display font-bold text-2xl tracking-tight text-stone-900">
-              IGNIÇÃO
-            </h1>
-          </div>
+          <img
+            src={ciaLogo.url}
+            alt="Cia do Lume"
+            width={160}
+            height={88}
+            className="h-14 w-auto object-contain drop-shadow-sm"
+          />
           <button
             onClick={() => setLang(lang === "pt" ? "en" : "pt")}
             className="bg-white/80 backdrop-blur-sm border border-stone-200 px-4 py-2 rounded-full text-xs font-bold tracking-widest text-stone-500 hover:shadow-md transition-shadow"
