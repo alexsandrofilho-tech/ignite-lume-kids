@@ -68,8 +68,8 @@
   --color-unny: var(--unny);
   --color-unny-ink: var(--unny-ink);
   --color-warm-bg: var(--warm-bg);
-  --font-display: "Syne", system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Fredoka", system-ui, sans-serif;
+  --font-sans: "Nunito", system-ui, sans-serif;
 }
 
 :root {
@@ -212,10 +212,29 @@
 
   /* Playful animated backdrop applied app-wide via body */
   body {
-    background-color: #fdf2f0;
-    background-image: none;
+    background-image:
+      radial-gradient(circle at 12% 8%,  oklch(0.92 0.12 60 / 0.55) 0, transparent 38%),
+      radial-gradient(circle at 88% 18%, oklch(0.90 0.14 320 / 0.45) 0, transparent 42%),
+      radial-gradient(circle at 78% 92%, oklch(0.88 0.16 150 / 0.45) 0, transparent 45%),
+      radial-gradient(circle at 6% 96%,  oklch(0.90 0.14 230 / 0.50) 0, transparent 45%),
+      linear-gradient(180deg, oklch(0.99 0.02 230) 0%, oklch(0.97 0.03 60) 100%);
+    background-attachment: fixed;
+    background-size: 100% 100%;
   }
 
-  body::before { content: none; }
+  /* Sprinkle dot pattern overlay for playful texture */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(oklch(0.74 0.21 45 / 0.18) 1.5px, transparent 2px),
+      radial-gradient(oklch(0.70 0.19 315 / 0.14) 1.5px, transparent 2px);
+    background-size: 28px 28px, 44px 44px;
+    background-position: 0 0, 14px 14px;
+    z-index: 0;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+  }
   body > * { position: relative; z-index: 1; }
 }

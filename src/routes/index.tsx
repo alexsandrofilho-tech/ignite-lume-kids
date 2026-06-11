@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Home, Map as MapIcon, Play, Heart, ChevronRight, BookOpen, Sparkles, Users } from "lucide-react";
+import { Home, Map as MapIcon, Play, Users, Heart, Sparkles, BookOpen, ChevronRight } from "lucide-react";
 import uniImg from "@/assets/char-uni.png";
 import lumeImg from "@/assets/char-lume.png";
 import risoImg from "@/assets/char-risoleta.png";
@@ -32,196 +32,283 @@ type Lang = "pt" | "en";
 
 const t = {
   pt: {
-    heroTag: "Início",
-    heroTitle: "IGNIÇÃO",
-    heroSub: "Lume · Louvaldo · Lila · Unny · Risoleta",
-    devo: "Devocional",
-    devoSub: "Crescendo com a Palavra",
-    bible: "Aventura Bíblica",
-    bibleSub: "Explore novas histórias hoje!",
-    play: "Jogar",
-    louvor: "Louvor",
-    louvorSub: "Solta o som!",
-    mission: "Missão",
-    missionSub: "Ajudar o próximo com amor",
-    new: "NOVO",
+    welcome: "Bem-vindo, Família Silva",
+    checkin: "Check-in Rápido",
+    portals: "Os 5 Mundos",
+    todayDevo: "Devocional de Hoje",
+    devoTitle: "Uma Conversa com Jesus",
+    devoDesc: "Descubra o que Lume tem para te contar hoje sobre o amor.",
+    start: "COMEÇAR",
+    bibleAdv: "Aventura Bíblica",
+    phase: "Fase 4: O Mar Vermelho",
+    faithMission: "Missão de Fé",
+    achievements: "Conquistas",
+    collectibles: "12 Colecionáveis",
+    nowPlaying: "Tocando agora",
+    song: "Sou Criança, Sou de Deus",
+    weeklyMission: "Missão da Semana",
+    weeklyDesc: "Ajude um amiguinho e ganhe a estrela da bondade.",
     parents: "Painel dos Pais",
-    parentsSub: "Gestão de tempo e conteúdos",
-    nav: { home: "INÍCIO", journey: "JORNADA", play: "PLAY", family: "FAMÍLIA" },
+    parentsDesc: "Check-in, avisos e calendário",
+    nav: { home: "Início", journey: "Jornada", play: "Play", family: "Família" },
+    portalNames: {
+      unny: "Família",
+      lume: "Devocional",
+      riso: "Aprender",
+      lou: "Louvor",
+      lila: "Servir",
+    },
   },
   en: {
-    heroTag: "Home",
-    heroTitle: "IGNIÇÃO",
-    heroSub: "Lume · Louvaldo · Lila · Unny · Risoleta",
-    devo: "Devotional",
-    devoSub: "Growing with the Word",
-    bible: "Bible Adventure",
-    bibleSub: "Explore new stories today!",
-    play: "Play",
-    louvor: "Worship",
-    louvorSub: "Turn it up!",
-    mission: "Mission",
-    missionSub: "Help others with love",
-    new: "NEW",
+    welcome: "Welcome, Silva Family",
+    checkin: "Quick Check-in",
+    portals: "The 5 Worlds",
+    todayDevo: "Today's Devotional",
+    devoTitle: "A Talk with Jesus",
+    devoDesc: "Discover what Lume has to share about love today.",
+    start: "START",
+    bibleAdv: "Bible Adventure",
+    phase: "Level 4: The Red Sea",
+    faithMission: "Faith Mission",
+    achievements: "Achievements",
+    collectibles: "12 Collectibles",
+    nowPlaying: "Now playing",
+    song: "I Am a Child of God",
+    weeklyMission: "Weekly Mission",
+    weeklyDesc: "Help a friend and earn the kindness star.",
     parents: "Parents Dashboard",
-    parentsSub: "Time & content management",
-    nav: { home: "HOME", journey: "JOURNEY", play: "PLAY", family: "FAMILY" },
+    parentsDesc: "Check-in, alerts & calendar",
+    nav: { home: "Home", journey: "Journey", play: "Play", family: "Family" },
+    portalNames: {
+      unny: "Family",
+      lume: "Devotional",
+      riso: "Learn",
+      lou: "Worship",
+      lila: "Serve",
+    },
   },
 } as const;
 
 function Index() {
   const [lang, setLang] = useState<Lang>("pt");
+  const [active, setActive] = useState<"unny" | "lume" | "riso" | "lou" | "lila">("lume");
   const c = t[lang];
 
   const portals = [
-    { to: "/unny",     img: uniImg,  label: "UNNY",     tint: "bg-unny/15",       ring: "border-unny/30",       dot: "bg-unny",      glow: "shadow-[0_0_18px_oklch(0.88_0.19_95/0.45)]" },
-    { to: "/lume",     img: lumeImg, label: "LUME",     tint: "bg-lume/10",       ring: "border-lume/30",       dot: "bg-lume",      glow: "shadow-[0_0_18px_oklch(0.74_0.21_45/0.45)]" },
-    { to: "/risoleta", img: risoImg, label: "RISOLETA", tint: "bg-riso-lilac/10", ring: "border-riso-lilac/30", dot: "bg-riso-lilac", glow: "shadow-[0_0_18px_oklch(0.70_0.19_315/0.45)]" },
-    { to: "/louvaldo", img: louImg,  label: "LOUVALDO", tint: "bg-lou/10",        ring: "border-lou/30",        dot: "bg-lou",       glow: "shadow-[0_0_18px_oklch(0.72_0.21_150/0.45)]" },
-    { to: "/lila",     img: lilaImg, label: "LILA",     tint: "bg-lila/10",       ring: "border-lila/30",       dot: "bg-lila",      glow: "shadow-[0_0_18px_oklch(0.58_0.16_35/0.45)]" },
+    { id: "unny", to: "/unny", bg: "bg-unny", text: "text-unny-ink", shadow: "shadow-unny/40", img: uniImg, label: "UNNY", theme: c.portalNames.unny },
+    { id: "lume", to: "/lume", bg: "bg-lume", text: "text-lume", shadow: "shadow-lume/40", img: lumeImg, label: "LUME", theme: c.portalNames.lume },
+    { id: "riso", to: "/risoleta", bg: "bg-riso-lilac", text: "text-riso-lilac", shadow: "shadow-riso-lilac/40", img: risoImg, label: "RISOLETA", theme: c.portalNames.riso },
+    { id: "lou", to: "/louvaldo", bg: "bg-lou", text: "text-lou", shadow: "shadow-lou/40", img: louImg, label: "LOUVALDO", theme: c.portalNames.lou },
+    { id: "lila", to: "/lila", bg: "bg-lila", text: "text-lila", shadow: "shadow-lila/40", img: lilaImg, label: "LILA", theme: c.portalNames.lila },
   ] as const;
 
   return (
-    <div className="min-h-screen w-full flex justify-center px-3 py-4 sm:py-8" style={{ backgroundColor: "#fdf2f0" }}>
-      <div className="w-full max-w-[460px] bg-white rounded-[3rem] shadow-[0_32px_64px_-16px_rgba(255,107,53,0.18)] border-[10px] border-white overflow-hidden flex flex-col relative">
+    <div className="min-h-screen text-stone-800 pb-32">
+      <div className="mx-auto max-w-xl">
         {/* Header */}
-        <header className="px-6 pt-7 pb-3 flex justify-between items-center bg-white/90 backdrop-blur-md sticky top-0 z-20">
+        <header className="p-6 flex justify-between items-center">
           <img
             src={ciaLogo.url}
             alt="Cia do Lume"
-            width={140}
-            height={56}
-            className="h-10 w-auto object-contain"
+            width={160}
+            height={88}
+            className="h-14 w-auto object-contain drop-shadow-sm"
           />
           <button
             onClick={() => setLang(lang === "pt" ? "en" : "pt")}
-            className="flex bg-stone-100 p-1 rounded-full"
+            className="bg-stone-100 p-1 rounded-full text-[10px] font-bold tracking-widest text-stone-400 flex items-center"
             aria-label="Toggle language"
           >
-            <span className={`px-3 py-1 text-[10px] font-bold rounded-full ${lang === "pt" ? "bg-white text-ignition shadow-sm" : "text-stone-400"}`}>PT</span>
-            <span className={`px-3 py-1 text-[10px] font-bold rounded-full ${lang === "en" ? "bg-white text-ignition shadow-sm" : "text-stone-400"}`}>EN</span>
+            <span className={`px-3 py-1 rounded-full ${lang === "pt" ? "bg-white text-ignition shadow-sm" : ""}`}>PT</span>
+            <span className={`px-3 py-1 rounded-full ${lang === "en" ? "bg-white text-ignition shadow-sm" : ""}`}>EN</span>
           </button>
         </header>
 
-        {/* Scrollable content */}
-        <main className="flex-1 px-5 pb-36 pt-2 space-y-5">
-          {/* Hero gradient with cast */}
-          <section className="relative h-64 rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-[#6c5ce7] via-[#e84393] to-[#ff6b35] p-6 flex flex-col justify-end shadow-xl shadow-orange-200/60">
-            <div className="absolute -right-6 -top-6 w-56 h-56 bg-white/20 blur-3xl rounded-full" />
+        {/* Cast Hero */}
+        <section className="px-6 mb-6">
+          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-orange-200/60 border-4 border-white aspect-square">
             <img
               src={castHero.url}
               alt="Lume, Louvaldo, Lila, Unny e Risoleta"
-              width={512}
-              height={512}
-              className="absolute right-[-32px] top-2 h-[78%] w-auto object-contain drop-shadow-2xl animate-float-soft"
+              width={1024}
+              height={1024}
+              className="w-full h-full object-cover"
             />
-            <div className="relative z-10 max-w-[60%]">
-              <span className="text-[10px] font-bold text-white/85 tracking-[0.25em] uppercase mb-1 block">{c.heroTag}</span>
-              <h1 className="font-display font-extrabold text-[2.6rem] text-white leading-none mb-2 tracking-tight">{c.heroTitle}</h1>
-              <p className="text-[11px] text-white/90 font-medium leading-tight">{c.heroSub}</p>
+            <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent text-white">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ignition mb-1">IGNIÇÃO</p>
+              <h2 className="font-display font-extrabold text-xl leading-tight drop-shadow-lg">
+                Lume · Louvaldo · Lila · Unny · Risoleta
+              </h2>
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Character portals */}
-          <section className="flex justify-between items-start pt-1">
-            {portals.map((p) => (
-              <Link key={p.label} to={p.to} className="flex flex-col items-center gap-2 group">
-                <div className={`w-14 h-14 rounded-2xl ${p.tint} border-2 ${p.ring} flex items-center justify-center transition-transform group-hover:-translate-y-1`}>
-                  <div className="w-9 h-9 rounded-xl bg-white grid place-items-center overflow-hidden">
-                    <img src={p.img} alt={p.label} width={36} height={36} className="w-full h-full object-contain p-0.5" loading="lazy" />
+        {/* 5 Character Portals */}
+        <p className="px-6 font-display text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-4">
+          {c.portals}
+        </p>
+        <nav className="px-6 flex gap-4 overflow-x-auto no-scrollbar mb-8">
+          {portals.map((p) => {
+            const isActive = active === p.id;
+            return (
+              <Link
+                key={p.id}
+                to={p.to}
+                onMouseEnter={() => setActive(p.id)}
+                className="flex-shrink-0 flex flex-col items-center gap-2 group"
+              >
+                <div
+                  className={`size-16 rounded-2xl p-1 flex items-center justify-center transition-all ${p.bg} ${p.shadow} shadow-lg group-hover:-translate-y-1 ${
+                    isActive ? "ring-4 ring-white scale-110" : ""
+                  }`}
+                >
+                  <div className="size-full rounded-xl bg-white/95 grid place-items-center overflow-hidden">
+                    <img
+                      src={p.img}
+                      alt={p.label}
+                      width={64}
+                      height={64}
+                      loading="lazy"
+                      className="size-full object-contain p-1 animate-float-soft"
+                    />
                   </div>
                 </div>
-                <span className="text-[9px] font-extrabold text-stone-500 tracking-tight">{p.label}</span>
-              </Link>
-            ))}
-          </section>
-
-          {/* Bento Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {/* Devocional (wide) */}
-            <Link to="/lume" className="col-span-2 bg-[#ff6b35]/[0.06] rounded-[2.5rem] p-6 border border-[#ff6b35]/15 flex justify-between items-center hover:scale-[1.01] transition-transform">
-              <div>
-                <h3 className="font-display font-extrabold text-xl text-[#ff6b35]">{c.devo}</h3>
-                <p className="text-xs text-stone-500 mt-1 font-medium">{c.devoSub}</p>
-              </div>
-              <div className="w-12 h-12 bg-[#ff6b35] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-200">
-                <BookOpen className="w-6 h-6" strokeWidth={2.5} />
-              </div>
-            </Link>
-
-            {/* Aventura Bíblica (tall) */}
-            <Link to="/risoleta" className="col-span-1 row-span-2 bg-gradient-to-br from-[#6c5ce7] to-[#8b7ef0] rounded-[2.5rem] p-6 flex flex-col justify-between text-white overflow-hidden relative hover:scale-[1.02] transition-transform shadow-lg shadow-indigo-200/60">
-              <div className="relative z-10">
-                <h3 className="font-display font-extrabold text-xl leading-tight">{c.bible}</h3>
-                <p className="text-[11px] opacity-85 mt-2 font-medium">{c.bibleSub}</p>
-              </div>
-              <img src={risoImg} alt="Risoleta" width={140} height={140} className="absolute -bottom-2 -right-2 w-32 h-32 object-contain animate-float-soft" loading="lazy" />
-              <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-white/20 rounded-full blur-2xl" />
-              <div className="mt-auto relative z-10">
-                <span className="inline-block bg-white text-[#6c5ce7] font-bold text-[10px] px-4 py-2 rounded-full uppercase tracking-wider shadow-md">
-                  {c.play}
+                <span
+                  className={`text-[10px] font-extrabold uppercase tracking-widest ${isActive ? p.text : "text-stone-400"}`}
+                >
+                  {p.label}
                 </span>
-              </div>
-            </Link>
+              </Link>
+            );
+          })}
+        </nav>
 
-            {/* Louvor */}
-            <Link to="/louvaldo" className="col-span-1 bg-[#e84393]/[0.06] rounded-[2.5rem] p-5 border border-[#e84393]/15 hover:scale-[1.02] transition-transform">
-              <div className="w-10 h-10 bg-[#e84393] rounded-full flex items-center justify-center text-white mb-3 shadow-md shadow-pink-200">
-                <Play className="w-5 h-5 ml-0.5 fill-current" />
-              </div>
-              <h3 className="font-display font-extrabold text-base text-[#e84393]">{c.louvor}</h3>
-              <p className="text-[10px] text-stone-500 font-medium mt-0.5">{c.louvorSub}</p>
-            </Link>
+        {/* Main content cards */}
+        <main className="px-6 space-y-6">
+          {/* Devotional (LUME) */}
+          <Link to="/lume" className="block relative bg-gradient-to-br from-[oklch(0.74_0.21_45)] to-[oklch(0.78_0.18_60)] rounded-[3rem] p-8 text-white overflow-hidden shadow-2xl shadow-orange-300/40 hover:scale-[1.01] transition-transform">
+            <div className="absolute -right-4 -bottom-4 size-44 opacity-30">
+              <img src={lumeImg} alt="" width={176} height={176} className="size-full object-contain" />
+            </div>
+            <div className="relative z-10 max-w-[65%]">
+              <span className="inline-block bg-white/20 backdrop-blur-md text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3">
+                {c.todayDevo}
+              </span>
+              <h3 className="text-3xl font-display font-extrabold mb-3 leading-[1.05]">
+                {c.devoTitle}
+              </h3>
+              <p className="text-white/90 text-sm mb-6 max-w-[200px]">{c.devoDesc}</p>
+              <span className="inline-block bg-white text-ignition font-display font-black px-8 py-3 rounded-2xl text-xs uppercase tracking-wider shadow-lg">
+                {c.start}
+              </span>
+            </div>
+          </Link>
 
-            {/* Missão */}
-            <Link to="/lila" className="col-span-1 bg-[#f7931e]/[0.1] rounded-[2.5rem] p-5 border border-[#f7931e]/25 hover:scale-[1.02] transition-transform">
-              <div className="flex justify-between items-start">
-                <h3 className="font-display font-extrabold text-base text-[#f7931e]">{c.mission}</h3>
-                <span className="bg-[#f7931e] text-[8px] text-white font-bold px-2 py-0.5 rounded-full tracking-wider">{c.new}</span>
+          {/* Bible Adventure (RISOLETA) */}
+          <Link to="/risoleta" className="block bg-white border border-stone-100 rounded-[2.5rem] p-6 shadow-sm hover:shadow-xl transition-shadow">
+            <div className="flex justify-between items-start mb-6">
+              <div>
+                <h4 className="font-display font-extrabold text-lg text-stone-900">{c.bibleAdv}</h4>
+                <p className="text-stone-400 text-xs font-semibold">{c.phase}</p>
               </div>
-              <p className="text-[10px] text-stone-500 font-medium mt-2 leading-snug">{c.missionSub}</p>
-              <div className="flex items-center gap-1 mt-3">
-                <Sparkles className="w-3 h-3 text-[#f7931e]" />
-                <div className="flex-1 h-1 bg-stone-100 rounded-full overflow-hidden">
-                  <div className="h-full w-1/3 bg-[#f7931e] rounded-full" />
+              <div className="size-14 rounded-full border-4 border-riso-lilac/10 flex items-center justify-center relative">
+                <svg className="absolute inset-0 size-full -rotate-90" viewBox="0 0 56 56">
+                  <circle cx="28" cy="28" r="24" fill="none" stroke="oklch(0.70 0.19 315)" strokeWidth="4" strokeDasharray="150.8" strokeDashoffset="37.7" strokeLinecap="round" />
+                </svg>
+                <span className="text-[11px] font-black text-riso-lilac">75%</span>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-orange-50 p-4 rounded-3xl border border-orange-100/60">
+                <div className="size-8 rounded-xl bg-ignition/10 mb-2 flex items-center justify-center">
+                  <BookOpen className="size-4 text-ignition" strokeWidth={2.5} />
                 </div>
+                <span className="text-[11px] font-bold text-stone-900 block">{c.faithMission}</span>
+                <span className="text-[10px] font-bold text-ignition">+50 XP</span>
               </div>
-            </Link>
+              <div className="bg-purple-50 p-4 rounded-3xl border border-purple-100/60">
+                <div className="size-8 rounded-xl bg-riso-lilac/10 mb-2 flex items-center justify-center">
+                  <Sparkles className="size-4 text-riso-lilac" strokeWidth={2.5} />
+                </div>
+                <span className="text-[11px] font-bold text-stone-900 block">{c.achievements}</span>
+                <span className="text-[10px] font-bold text-riso-lilac">{c.collectibles}</span>
+              </div>
+            </div>
+          </Link>
 
-            {/* Painel dos Pais */}
-            <Link to="/unny" className="col-span-2 bg-stone-50 rounded-[2.5rem] p-5 flex items-center gap-4 border border-stone-100 hover:bg-stone-100/60 transition-colors">
-              <div className="w-11 h-11 rounded-2xl bg-stone-900 flex items-center justify-center text-white">
-                <Users className="w-5 h-5" strokeWidth={2.2} />
+          {/* Worship (LOUVALDO) */}
+          <Link to="/louvaldo" className="bg-emerald-50 rounded-[2rem] p-3 flex items-center gap-4 hover:bg-emerald-100/70 transition-colors">
+            <div className="size-14 bg-lou rounded-2xl shadow-lg shadow-emerald-200 flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <img src={louImg} alt="Louvaldo" width={56} height={56} className="size-full object-contain p-0.5" loading="lazy" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-lou font-extrabold text-[9px] uppercase tracking-widest">{c.nowPlaying}</p>
+              <h4 className="text-stone-900 font-bold text-xs leading-tight truncate">
+                {c.song}
+              </h4>
+              <div className="flex gap-0.5 mt-1.5 items-end h-4">
+                <div className="w-1 h-3 bg-lou rounded-full animate-pulse" />
+                <div className="w-1 h-4 bg-lou rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
+                <div className="w-1 h-2 bg-lou rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
               </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-sm text-stone-800">{c.parents}</h3>
-                <p className="text-[10px] text-stone-400 font-medium">{c.parentsSub}</p>
+            </div>
+            <span className="size-12 bg-lou rounded-full flex items-center justify-center text-white shadow-lg shadow-emerald-200">
+              <Play className="size-5 fill-current ml-0.5" />
+            </span>
+          </Link>
+
+          {/* Weekly Mission (LILA) */}
+          <Link to="/lila" className="bg-white border border-amber-100 rounded-[2rem] p-5 flex items-center gap-4 shadow-sm hover:shadow-lg transition-shadow">
+            <div className="size-14 rounded-2xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+              <img src={lilaImg} alt="Lila" width={48} height={48} className="size-12 object-contain animate-float-soft" loading="lazy" />
+            </div>
+            <div className="flex-1">
+              <span className="text-lila font-extrabold text-[9px] uppercase tracking-widest">
+                {c.weeklyMission}
+              </span>
+              <p className="text-stone-700 font-bold text-[11px] leading-tight mt-1">
+                {c.weeklyDesc}
+              </p>
+              <div className="w-full h-1.5 bg-stone-100 rounded-full mt-2.5 overflow-hidden">
+                <div className="h-full w-1/3 bg-lila rounded-full" />
               </div>
-              <ChevronRight className="w-5 h-5 text-stone-300" />
-            </Link>
-          </div>
+            </div>
+            <div className="text-[11px] font-black text-stone-300">1/3</div>
+          </Link>
+
+          {/* Parents Hub (UNNY) */}
+          <Link to="/unny" className="bg-[#1e293b] rounded-[2.5rem] p-5 flex items-center gap-4 shadow-xl hover:scale-[0.99] transition-transform">
+            <div className="size-12 bg-ignition rounded-2xl flex items-center justify-center flex-shrink-0 text-white">
+              <Users className="size-6" strokeWidth={2.5} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-display font-extrabold text-sm">{c.parents}</p>
+              <p className="text-slate-400 text-[10px]">{c.parentsDesc}</p>
+            </div>
+            <ChevronRight className="size-5 text-slate-500 ml-auto" />
+          </Link>
         </main>
 
-        {/* Bottom nav */}
-        <nav className="absolute bottom-5 left-5 right-5 h-[68px] bg-stone-900/95 backdrop-blur-lg rounded-[2rem] flex items-center justify-around px-3 border border-white/10 shadow-2xl shadow-black/30 z-30">
+        {/* Bottom Nav */}
+        <div className="fixed bottom-6 left-6 right-6 max-w-[calc(36rem-3rem)] mx-auto bg-stone-900/95 backdrop-blur-xl rounded-[2rem] shadow-2xl flex items-center justify-around p-2 border border-white/10">
           {[
             { Icon: Home, label: c.nav.home, active: true },
             { Icon: MapIcon, label: c.nav.journey },
             { Icon: Play, label: c.nav.play },
             { Icon: Heart, label: c.nav.family },
-          ].map(({ Icon, label, active }, i) => (
-            <button key={i} className={`flex flex-col items-center gap-1 flex-1 py-1 ${active ? "" : "opacity-40 hover:opacity-100 transition-opacity"}`}>
-              {active ? (
-                <div className="p-2 rounded-xl bg-[#ff6b35] text-white shadow-lg shadow-orange-900/40">
-                  <Icon className="w-5 h-5" />
+          ].map(({ Icon, label, active: isOn }, i) => (
+            <button key={i} className={`flex flex-col items-center gap-1 flex-1 py-1 transition-opacity ${isOn ? "" : "opacity-40 hover:opacity-100"}`}>
+              {isOn ? (
+                <div className="p-2 bg-ignition rounded-2xl text-white shadow-lg shadow-orange-900/40">
+                  <Icon className="size-5" />
                 </div>
               ) : (
-                <Icon className="w-5 h-5 text-white" />
+                <Icon className="size-6 text-white" />
               )}
-              <span className={`text-[9px] font-bold tracking-wider ${active ? "text-[#ff6b35]" : "text-white"}`}>{label}</span>
+              <span className={`font-extrabold text-[9px] tracking-widest uppercase ${isOn ? "text-ignition" : "text-white"}`}>{label}</span>
             </button>
           ))}
-        </nav>
+        </div>
       </div>
     </div>
   );
