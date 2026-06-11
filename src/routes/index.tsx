@@ -258,19 +258,19 @@ function Index() {
           </Link>
 
           {/* Weekly Mission (LILA) */}
-          <Link to="/lila" className="bg-white border border-pink-100 rounded-[2rem] p-5 flex items-center gap-4 shadow-sm hover:shadow-lg transition-shadow">
-            <div className="size-14 rounded-2xl bg-pink-50 flex items-center justify-center flex-shrink-0">
+          <Link to="/lila" className="bg-white border border-amber-100 rounded-[2rem] p-5 flex items-center gap-4 shadow-sm hover:shadow-lg transition-shadow">
+            <div className="size-14 rounded-2xl bg-amber-50 flex items-center justify-center flex-shrink-0">
               <img src={lilaImg} alt="Lila" width={48} height={48} className="size-12 object-contain animate-float-soft" loading="lazy" />
             </div>
             <div className="flex-1">
-              <span className="text-[oklch(0.65_0.22_355)] font-extrabold text-[9px] uppercase tracking-widest">
+              <span className="text-lila font-extrabold text-[9px] uppercase tracking-widest">
                 {c.weeklyMission}
               </span>
               <p className="text-stone-700 font-bold text-[11px] leading-tight mt-1">
                 {c.weeklyDesc}
               </p>
               <div className="w-full h-1.5 bg-stone-100 rounded-full mt-2.5 overflow-hidden">
-                <div className="h-full w-1/3 bg-[oklch(0.65_0.22_355)] rounded-full" />
+                <div className="h-full w-1/3 bg-lila rounded-full" />
               </div>
             </div>
             <div className="text-[11px] font-black text-stone-300">1/3</div>
