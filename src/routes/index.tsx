@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Home, Map as MapIcon, Play, Users, Heart, Sparkles, BookOpen, ChevronRight } from "lucide-react";
 import uniImg from "@/assets/char-uni.png";
 import lumeImg from "@/assets/char-lume.png";
-import risoImg from "@/assets/char-risoleta.png";
+import risoImg from "@/assets/char-lila.png";
 import louImg from "@/assets/char-louvaldo.png";
-import lilaImg from "@/assets/char-lila.png";
+import lilaImg from "@/assets/char-risoleta.png";
 import castHero from "@/assets/cast-hero.png.asset.json";
 import ciaLogo from "@/assets/cia-do-lume.png.asset.json";
 

@@ -6,7 +6,7 @@ import { useProgress } from "@/lib/progress";
 import {
   WEEKLY_MISSIONS, useMissions, isoForWeekday, levelInfo, LEVELS, CATEGORY_META, isPerfectWeek,
 } from "@/lib/missions";
-import lilaImg from "@/assets/char-lila.png";
+import lilaImg from "@/assets/char-risoleta.png";
 
 export const Route = createFileRoute("/lila/perfil")({
   head: () => ({

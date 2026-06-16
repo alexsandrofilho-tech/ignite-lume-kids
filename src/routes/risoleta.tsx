@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen, Brain, Puzzle, Trophy, Sparkles, ChevronRight } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
-import risoImg from "@/assets/char-risoleta.png";
+import risoImg from "@/assets/char-lila.png";
 
 export const Route = createFileRoute("/risoleta")({
   head: () => ({

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, ChevronRight, Sparkles, Trophy, Map as MapIcon } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
 import { LilaBottomNav } from "@/components/lila/BottomNav";
-import lilaImg from "@/assets/char-lila.png";
+import lilaImg from "@/assets/char-risoleta.png";
 import { useProgress } from "@/lib/progress";
 import {
   WEEKLY_MISSIONS, CATEGORY_META, useMissions, todayISO, DAYS_PT_FULL,
