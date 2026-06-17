@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Home, Map as MapIcon, Play, Users, Heart, Sparkles, BookOpen, ChevronRight } from "lucide-react";
+import { Play, Users, Sparkles, BookOpen, ChevronRight } from "lucide-react";
 import { AppBottomNav } from "@/components/AppBottomNav";
 import uniImg from "@/assets/char-uni.png";
 import lumeImg from "@/assets/char-lume.png";
