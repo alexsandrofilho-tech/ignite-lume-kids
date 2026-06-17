@@ -11,9 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnnyRouteImport } from './routes/unny'
 import { Route as RisoletaRouteImport } from './routes/risoleta'
+import { Route as PlayRouteImport } from './routes/play'
 import { Route as LumeRouteImport } from './routes/lume'
 import { Route as LouvaldoRouteImport } from './routes/louvaldo'
 import { Route as LilaRouteImport } from './routes/lila'
+import { Route as JornadaRouteImport } from './routes/jornada'
+import { Route as FamiliaRouteImport } from './routes/familia'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LouvaldoViolaoRouteImport } from './routes/louvaldo.violao'
 import { Route as LouvaldoBateriaRouteImport } from './routes/louvaldo.bateria'
@@ -32,6 +35,11 @@ const RisoletaRoute = RisoletaRouteImport.update({
   path: '/risoleta',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlayRoute = PlayRouteImport.update({
+  id: '/play',
+  path: '/play',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LumeRoute = LumeRouteImport.update({
   id: '/lume',
   path: '/lume',
@@ -45,6 +53,16 @@ const LouvaldoRoute = LouvaldoRouteImport.update({
 const LilaRoute = LilaRouteImport.update({
   id: '/lila',
   path: '/lila',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaRoute = JornadaRouteImport.update({
+  id: '/jornada',
+  path: '/jornada',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FamiliaRoute = FamiliaRouteImport.update({
+  id: '/familia',
+  path: '/familia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -85,9 +103,12 @@ const LilaJornadaRoute = LilaJornadaRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/familia': typeof FamiliaRoute
+  '/jornada': typeof JornadaRoute
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
+  '/play': typeof PlayRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
@@ -99,9 +120,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/familia': typeof FamiliaRoute
+  '/jornada': typeof JornadaRoute
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
+  '/play': typeof PlayRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
@@ -114,9 +138,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/familia': typeof FamiliaRoute
+  '/jornada': typeof JornadaRoute
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
+  '/play': typeof PlayRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
@@ -130,9 +157,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/familia'
+    | '/jornada'
     | '/lila'
     | '/louvaldo'
     | '/lume'
+    | '/play'
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
@@ -144,9 +174,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/familia'
+    | '/jornada'
     | '/lila'
     | '/louvaldo'
     | '/lume'
+    | '/play'
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
@@ -158,9 +191,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/familia'
+    | '/jornada'
     | '/lila'
     | '/louvaldo'
     | '/lume'
+    | '/play'
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
@@ -173,9 +209,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FamiliaRoute: typeof FamiliaRoute
+  JornadaRoute: typeof JornadaRoute
   LilaRoute: typeof LilaRouteWithChildren
   LouvaldoRoute: typeof LouvaldoRouteWithChildren
   LumeRoute: typeof LumeRoute
+  PlayRoute: typeof PlayRoute
   RisoletaRoute: typeof RisoletaRoute
   UnnyRoute: typeof UnnyRoute
 }
@@ -194,6 +233,13 @@ declare module '@tanstack/react-router' {
       path: '/risoleta'
       fullPath: '/risoleta'
       preLoaderRoute: typeof RisoletaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/play': {
+      id: '/play'
+      path: '/play'
+      fullPath: '/play'
+      preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lume': {
@@ -215,6 +261,20 @@ declare module '@tanstack/react-router' {
       path: '/lila'
       fullPath: '/lila'
       preLoaderRoute: typeof LilaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada': {
+      id: '/jornada'
+      path: '/jornada'
+      fullPath: '/jornada'
+      preLoaderRoute: typeof JornadaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/familia': {
+      id: '/familia'
+      path: '/familia'
+      fullPath: '/familia'
+      preLoaderRoute: typeof FamiliaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -301,22 +361,15 @@ const LouvaldoRouteWithChildren = LouvaldoRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FamiliaRoute: FamiliaRoute,
+  JornadaRoute: JornadaRoute,
   LilaRoute: LilaRouteWithChildren,
   LouvaldoRoute: LouvaldoRouteWithChildren,
   LumeRoute: LumeRoute,
+  PlayRoute: PlayRoute,
   RisoletaRoute: RisoletaRoute,
   UnnyRoute: UnnyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
