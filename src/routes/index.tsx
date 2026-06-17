@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Home, Map as MapIcon, Play, Users, Heart, Sparkles, BookOpen, ChevronRight } from "lucide-react";
+import { AppBottomNav } from "@/components/AppBottomNav";
 import uniImg from "@/assets/char-uni.png";
 import lumeImg from "@/assets/char-lume.png";
 import risoImg from "@/assets/char-lila.png";
@@ -289,27 +290,8 @@ function Index() {
           </Link>
         </main>
 
-        {/* Bottom Nav */}
-        <div className="fixed bottom-6 left-6 right-6 max-w-[calc(36rem-3rem)] mx-auto bg-stone-900/95 backdrop-blur-xl rounded-[2rem] shadow-2xl flex items-center justify-around p-2 border border-white/10">
-          {[
-            { Icon: Home, label: c.nav.home, active: true },
-            { Icon: MapIcon, label: c.nav.journey },
-            { Icon: Play, label: c.nav.play },
-            { Icon: Heart, label: c.nav.family },
-          ].map(({ Icon, label, active: isOn }, i) => (
-            <button key={i} className={`flex flex-col items-center gap-1 flex-1 py-1 transition-opacity ${isOn ? "" : "opacity-40 hover:opacity-100"}`}>
-              {isOn ? (
-                <div className="p-2 bg-ignition rounded-2xl text-white shadow-lg shadow-orange-900/40">
-                  <Icon className="size-5" />
-                </div>
-              ) : (
-                <Icon className="size-6 text-white" />
-              )}
-              <span className={`font-extrabold text-[9px] tracking-widest uppercase ${isOn ? "text-ignition" : "text-white"}`}>{label}</span>
-            </button>
-          ))}
-        </div>
       </div>
+      <AppBottomNav />
     </div>
   );
 }
