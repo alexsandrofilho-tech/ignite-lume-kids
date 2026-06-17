@@ -58,32 +58,36 @@ function JornadaPage() {
         <ol className="space-y-3">
           {stages.map((s, i) => {
             const isLocked = s.status === "locked";
-            const Wrapper: typeof Link | "div" = isLocked ? "div" : Link;
-            const wrapperProps = isLocked
-              ? { "aria-disabled": true, className: "opacity-50 cursor-not-allowed" }
-              : ({ to: s.to, className: "hover:scale-[1.01] transition-transform" } as const);
+            const inner = (
+              <div className="flex items-center gap-4">
+                <div className={`size-12 rounded-2xl grid place-items-center font-display font-black ${s.color}`} aria-hidden="true">
+                  {i + 1}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[10px] font-extrabold uppercase tracking-widest text-stone-400">{s.world}</p>
+                  <p className="font-bold text-stone-900 truncate">{s.title}</p>
+                  <p className="text-xs text-stone-500 flex items-center gap-1 mt-0.5">
+                    <Star className="size-3 text-ignition" aria-hidden="true" /> +{s.xp} XP
+                  </p>
+                </div>
+                <span aria-label={s.status === "done" ? "Concluído" : s.status === "current" ? "Em andamento" : "Bloqueado"}>
+                  {s.status === "done" && <Check className="size-5 text-emerald-500" />}
+                  {s.status === "current" && <ChevronRight className="size-5 text-ignition" />}
+                  {s.status === "locked" && <Lock className="size-5 text-stone-300" />}
+                </span>
+              </div>
+            );
             return (
               <li key={s.id}>
-                {/* @ts-expect-error union of Link/div props */}
-                <Wrapper {...wrapperProps} className={`block bg-white border border-stone-100 rounded-3xl p-4 shadow-sm ${isLocked ? "opacity-60" : "hover:shadow-lg"} transition-all`}>
-                  <div className="flex items-center gap-4">
-                    <div className={`size-12 rounded-2xl grid place-items-center font-display font-black ${s.color}`} aria-hidden="true">
-                      {i + 1}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[10px] font-extrabold uppercase tracking-widest text-stone-400">{s.world}</p>
-                      <p className="font-bold text-stone-900 truncate">{s.title}</p>
-                      <p className="text-xs text-stone-500 flex items-center gap-1 mt-0.5">
-                        <Star className="size-3 text-ignition" aria-hidden="true" /> +{s.xp} XP
-                      </p>
-                    </div>
-                    <span aria-label={s.status === "done" ? "Concluído" : s.status === "current" ? "Em andamento" : "Bloqueado"}>
-                      {s.status === "done" && <Check className="size-5 text-emerald-500" />}
-                      {s.status === "current" && <ChevronRight className="size-5 text-ignition" />}
-                      {s.status === "locked" && <Lock className="size-5 text-stone-300" />}
-                    </span>
+                {isLocked ? (
+                  <div aria-disabled className="block bg-white border border-stone-100 rounded-3xl p-4 shadow-sm opacity-60 cursor-not-allowed">
+                    {inner}
                   </div>
-                </Wrapper>
+                ) : (
+                  <Link to={s.to} className="block bg-white border border-stone-100 rounded-3xl p-4 shadow-sm hover:shadow-lg hover:scale-[1.01] transition-all">
+                    {inner}
+                  </Link>
+                )}
               </li>
             );
           })}

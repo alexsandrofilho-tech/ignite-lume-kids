@@ -14,6 +14,7 @@ import { Route as RisoletaRouteImport } from './routes/risoleta'
 import { Route as LumeRouteImport } from './routes/lume'
 import { Route as LouvaldoRouteImport } from './routes/louvaldo'
 import { Route as LilaRouteImport } from './routes/lila'
+import { Route as JornadaRouteImport } from './routes/jornada'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LouvaldoViolaoRouteImport } from './routes/louvaldo.violao'
 import { Route as LouvaldoBateriaRouteImport } from './routes/louvaldo.bateria'
@@ -45,6 +46,11 @@ const LouvaldoRoute = LouvaldoRouteImport.update({
 const LilaRoute = LilaRouteImport.update({
   id: '/lila',
   path: '/lila',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaRoute = JornadaRouteImport.update({
+  id: '/jornada',
+  path: '/jornada',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -85,6 +91,7 @@ const LilaJornadaRoute = LilaJornadaRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/jornada': typeof JornadaRoute
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/jornada': typeof JornadaRoute
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
@@ -114,6 +122,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/jornada': typeof JornadaRoute
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/jornada'
     | '/lila'
     | '/louvaldo'
     | '/lume'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/jornada'
     | '/lila'
     | '/louvaldo'
     | '/lume'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/jornada'
     | '/lila'
     | '/louvaldo'
     | '/lume'
@@ -173,6 +185,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  JornadaRoute: typeof JornadaRoute
   LilaRoute: typeof LilaRouteWithChildren
   LouvaldoRoute: typeof LouvaldoRouteWithChildren
   LumeRoute: typeof LumeRoute
@@ -215,6 +228,13 @@ declare module '@tanstack/react-router' {
       path: '/lila'
       fullPath: '/lila'
       preLoaderRoute: typeof LilaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada': {
+      id: '/jornada'
+      path: '/jornada'
+      fullPath: '/jornada'
+      preLoaderRoute: typeof JornadaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -301,6 +321,7 @@ const LouvaldoRouteWithChildren = LouvaldoRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  JornadaRoute: JornadaRoute,
   LilaRoute: LilaRouteWithChildren,
   LouvaldoRoute: LouvaldoRouteWithChildren,
   LumeRoute: LumeRoute,
