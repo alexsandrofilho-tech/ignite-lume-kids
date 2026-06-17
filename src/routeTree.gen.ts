@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnnyRouteImport } from './routes/unny'
 import { Route as RisoletaRouteImport } from './routes/risoleta'
+import { Route as PlayRouteImport } from './routes/play'
 import { Route as LumeRouteImport } from './routes/lume'
 import { Route as LouvaldoRouteImport } from './routes/louvaldo'
 import { Route as LilaRouteImport } from './routes/lila'
@@ -31,6 +32,11 @@ const UnnyRoute = UnnyRouteImport.update({
 const RisoletaRoute = RisoletaRouteImport.update({
   id: '/risoleta',
   path: '/risoleta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlayRoute = PlayRouteImport.update({
+  id: '/play',
+  path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LumeRoute = LumeRouteImport.update({
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
+  '/play': typeof PlayRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
+  '/play': typeof PlayRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/lila': typeof LilaRouteWithChildren
   '/louvaldo': typeof LouvaldoRouteWithChildren
   '/lume': typeof LumeRoute
+  '/play': typeof PlayRoute
   '/risoleta': typeof RisoletaRoute
   '/unny': typeof UnnyRoute
   '/lila/jornada': typeof LilaJornadaRoute
@@ -143,6 +152,7 @@ export interface FileRouteTypes {
     | '/lila'
     | '/louvaldo'
     | '/lume'
+    | '/play'
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
@@ -158,6 +168,7 @@ export interface FileRouteTypes {
     | '/lila'
     | '/louvaldo'
     | '/lume'
+    | '/play'
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
@@ -173,6 +184,7 @@ export interface FileRouteTypes {
     | '/lila'
     | '/louvaldo'
     | '/lume'
+    | '/play'
     | '/risoleta'
     | '/unny'
     | '/lila/jornada'
@@ -189,6 +201,7 @@ export interface RootRouteChildren {
   LilaRoute: typeof LilaRouteWithChildren
   LouvaldoRoute: typeof LouvaldoRouteWithChildren
   LumeRoute: typeof LumeRoute
+  PlayRoute: typeof PlayRoute
   RisoletaRoute: typeof RisoletaRoute
   UnnyRoute: typeof UnnyRoute
 }
@@ -207,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/risoleta'
       fullPath: '/risoleta'
       preLoaderRoute: typeof RisoletaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/play': {
+      id: '/play'
+      path: '/play'
+      fullPath: '/play'
+      preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lume': {
@@ -325,6 +345,7 @@ const rootRouteChildren: RootRouteChildren = {
   LilaRoute: LilaRouteWithChildren,
   LouvaldoRoute: LouvaldoRouteWithChildren,
   LumeRoute: LumeRoute,
+  PlayRoute: PlayRoute,
   RisoletaRoute: RisoletaRoute,
   UnnyRoute: UnnyRoute,
 }
