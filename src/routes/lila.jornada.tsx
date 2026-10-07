@@ -14,6 +14,10 @@ export const Route = createFileRoute("/lila/jornada")({
     meta: [
       { title: "Jornada da Semana — Lila | IGNIÇÃO" },
       { name: "description", content: "Quadro de missões dos 7 dias da semana." },
+      { property: "og:title", content: "Jornada da Semana — Lila | IGNIÇÃO" },
+      { property: "og:description", content: "Quadro de missões dos 7 dias da semana." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: JornadaPage,

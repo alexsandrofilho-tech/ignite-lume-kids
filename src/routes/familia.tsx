@@ -11,6 +11,8 @@ export const Route = createFileRoute("/familia")({
       { name: "description", content: "Painel dos pais: check-in, avisos, calendário e progresso dos filhos." },
       { property: "og:title", content: "Família — IGNIÇÃO" },
       { property: "og:description", content: "Tudo o que a família precisa para acompanhar a jornada das crianças." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: FamiliaPage,

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Flame, BookOpen, Heart, Compass, Sparkles, ChevronRight } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
+import { CharacterTabs } from "@/components/CharacterTabs";
 import lumeImg from "@/assets/char-lume.png";
 
 export const Route = createFileRoute("/lume")({
@@ -10,6 +11,8 @@ export const Route = createFileRoute("/lume")({
       { name: "description", content: "Acenda sua jornada de fé com Lume: devocionais diários, leitura bíblica, desafios de oração e missões de evangelismo." },
       { property: "og:title", content: "Lume — Devocional & Evangelismo" },
       { property: "og:description", content: "Devocionais, leitura bíblica e missões de fé para crianças." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LumePage,
@@ -29,6 +32,7 @@ function LumePage() {
         </>
       }
     >
+      <CharacterTabs character="lume">
       {/* Hero */}
       <section className="px-6 mt-2">
         <div className="relative rounded-[2.5rem] bg-white/10 backdrop-blur-md border border-white/20 p-6 overflow-hidden">
@@ -107,6 +111,7 @@ function LumePage() {
           <ChevronRight className="size-5" />
         </button>
       </section>
+      </CharacterTabs>
     </CharWorld>
   );
 }

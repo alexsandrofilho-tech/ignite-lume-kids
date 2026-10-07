@@ -12,6 +12,8 @@ export const Route = createFileRoute("/play")({
       { name: "description", content: "Jogos, músicas e histórias bíblicas interativas para a criançada." },
       { property: "og:title", content: "Play — IGNIÇÃO" },
       { property: "og:description", content: "Diversão com propósito: música, quiz e aventuras bíblicas." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: PlayPage,

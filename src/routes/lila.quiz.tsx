@@ -14,6 +14,10 @@ export const Route = createFileRoute("/lila/quiz")({
     meta: [
       { title: "Quiz Diário — Lila | IGNIÇÃO" },
       { name: "description", content: "Quiz bíblico de 3 perguntas baseado na leitura de hoje." },
+      { property: "og:title", content: "Quiz Diário — Lila | IGNIÇÃO" },
+      { property: "og:description", content: "Quiz bíblico de 3 perguntas baseado na leitura de hoje." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: QuizPage,

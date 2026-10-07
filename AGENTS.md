@@ -1,0 +1,3 @@
+# Architecture rules
+- Character overview routes retain their existing content inside a shared accessible tab shell; character-specific activities live outside route files to preserve navigation and avoid duplicated interaction logic.
+- Expanded character activities use versioned browser-local storage and the existing progress system; they do not imply real ministry check-in, shared family records, or hosted account persistence.
