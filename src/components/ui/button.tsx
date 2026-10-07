@@ -16,6 +16,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        world: "bg-world-accent text-world-on-accent shadow-sm hover:opacity-90 focus-visible:ring-world-accent",
+        worldGhost: "bg-world-panel text-world-ink hover:bg-world-accent/15 focus-visible:ring-world-accent",
       },
       size: {
         default: "h-9 px-4 py-2",
