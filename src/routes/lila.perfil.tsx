@@ -13,6 +13,10 @@ export const Route = createFileRoute("/lila/perfil")({
     meta: [
       { title: "Perfil — Lila | IGNIÇÃO" },
       { name: "description", content: "Seu nível, conquistas e missões cumpridas." },
+      { property: "og:title", content: "Perfil — Lila | IGNIÇÃO" },
+      { property: "og:description", content: "Seu nível, conquistas e missões cumpridas." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: PerfilPage,

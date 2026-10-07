@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen, Brain, Puzzle, Trophy, Sparkles, ChevronRight } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
+import { CharacterTabs } from "@/components/CharacterTabs";
 import risoImg from "@/assets/char-lila.png";
 
 export const Route = createFileRoute("/risoleta")({
@@ -10,6 +11,8 @@ export const Route = createFileRoute("/risoleta")({
       { name: "description", content: "Escola Bíblica online com Risoleta: lições interativas, quizzes, jogos bíblicos e progressão de aprendizado." },
       { property: "og:title", content: "Risoleta — Aprendizado Bíblico" },
       { property: "og:description", content: "Escola bíblica interativa para crianças." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: RisoletaPage,
@@ -30,6 +33,7 @@ function RisoletaPage() {
         </>
       }
     >
+      <CharacterTabs character="risoleta">
       {/* Adventure hero */}
       <section className="px-6 mt-2">
         <div className="relative rounded-[2.5rem] bg-white/40 backdrop-blur-md border border-white/60 p-6 overflow-hidden">
@@ -104,6 +108,7 @@ function RisoletaPage() {
           ))}
         </div>
       </section>
+      </CharacterTabs>
     </CharWorld>
   );
 }

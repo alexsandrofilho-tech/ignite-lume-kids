@@ -11,6 +11,10 @@ export const Route = createFileRoute("/lila/ranking")({
     meta: [
       { title: "Ranking — Lila | IGNIÇÃO" },
       { name: "description", content: "Top da semana no ministério infantil." },
+      { property: "og:title", content: "Ranking — Lila | IGNIÇÃO" },
+      { property: "og:description", content: "Top da semana no ministério infantil." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: RankingPage,

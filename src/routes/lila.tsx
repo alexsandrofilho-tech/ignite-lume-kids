@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Flame, ChevronRight, Sparkles, Trophy, Map as MapIcon } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
+import { CharacterTabs } from "@/components/CharacterTabs";
 import { LilaBottomNav } from "@/components/lila/BottomNav";
 import lilaImg from "@/assets/char-risoleta.png";
 import { useProgress } from "@/lib/progress";
@@ -14,6 +15,10 @@ export const Route = createFileRoute("/lila")({
     meta: [
       { title: "Lila — Missões & Bondade | IGNIÇÃO" },
       { name: "description", content: "Missões diárias, oração, leitura bíblica, quiz e ranking com Lila." },
+      { property: "og:title", content: "Lila — Missões & Bondade | IGNIÇÃO" },
+      { property: "og:description", content: "Missões diárias, oração, leitura bíblica, quiz e ranking com Lila." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LilaHome,
@@ -50,6 +55,7 @@ function LilaHome() {
         </>
       }
     >
+      <CharacterTabs character="lila">
       {/* Greeting */}
       <section className="px-6">
         <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[oklch(0.45_0.08_55)]">
@@ -147,6 +153,7 @@ function LilaHome() {
         </div>
       </section>
 
+      </CharacterTabs>
       <LilaBottomNav />
     </CharWorld>
   );

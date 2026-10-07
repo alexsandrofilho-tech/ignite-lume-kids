@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { characterContent, lessons, questions, reflections } from '@/lib/character-content';
 import { useCharacterActivities } from '@/lib/use-character-activities';
 import { useProgress, type CharKey } from '@/lib/progress';
-import { CHORDS, strumChord, playDrum } from '@/lib/audio';
+import { CHORDS, strumChord, playTick, playSnare } from '@/lib/audio';
 
 function dayKey() { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; }
 
@@ -91,8 +91,8 @@ function Rhythm({ activities }: { activities: Activities }) {
   const [hits, setHits] = useState(0);
   const [feedback, setFeedback] = useState('');
   const tick = useRef(0);
-  useEffect(() => { if (!running) return; function pulse() { tick.current = performance.now(); setBeat(value => value + 1); playDrum('hat'); } pulse(); const timer = setInterval(pulse, 750); return () => clearInterval(timer); }, [running]);
-  function tap() { playDrum('snare'); const elapsed = (performance.now() - tick.current) % 750; if (Math.min(elapsed, 750 - elapsed) < 180) { setHits(value => value + 1); setFeedback('No ritmo!'); } else setFeedback('Quase! Escute a próxima batida.'); }
+  useEffect(() => { if (!running) return; function pulse() { tick.current = performance.now(); setBeat(value => value + 1); playTick(); } pulse(); const timer = setInterval(pulse, 750); return () => clearInterval(timer); }, [running]);
+  function tap() { playSnare(); const elapsed = (performance.now() - tick.current) % 750; if (Math.min(elapsed, 750 - elapsed) < 180) { setHits(value => value + 1); setFeedback('No ritmo!'); } else setFeedback('Quase! Escute a próxima batida.'); }
   return <div><h2 className="world-heading">Sinta a pulsação</h2><p className="text-sm mb-5">Um pulso constante, como passos caminhando juntos.</p><div className="flex gap-3 justify-center mb-5">{[0, 1, 2, 3].map(index => <div key={index} className={`size-10 rounded-full grid place-items-center border border-world-border ${running && beat % 4 === index ? 'bg-world-accent text-world-on-accent' : ''}`}>{index + 1}</div>)}</div><div className="flex flex-wrap gap-3 justify-center"><Button variant="worldGhost" onClick={() => { setRunning(value => !value); setFeedback(''); }}>{running ? <Pause /> : <Play />}{running ? 'Pausar' : 'Começar · 80 BPM'}</Button><Button variant="world" className="min-h-14" disabled={!running} onClick={tap}><Music2 />Minha batida</Button></div><p role="status" className="text-center min-h-6 mt-4 font-bold text-sm">{feedback}</p><p className="text-center text-sm">{hits} acertos · meta: 8</p>{hits >= 8 && <Completion activities={activities} id={`rhythm:${dayKey()}`} xp={20} label="Guardar meu ritmo" />}</div>;
 }
 function Reminders({ activities }: { activities: Activities }) {

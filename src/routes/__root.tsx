@@ -82,8 +82,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Cia do lume APP" },
       { name: "twitter:description", content: "Ignition Kingdom is an immersive, bilingual digital ecosystem for children's ministry." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8dfc9df0-1326-4a14-a5d4-79ed8c90bdc9/id-preview-ea777e19--5fd76e77-bd03-4f82-8b6c-5e0fcc3df4c6.lovable.app-1779971791416.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8dfc9df0-1326-4a14-a5d4-79ed8c90bdc9/id-preview-ea777e19--5fd76e77-bd03-4f82-8b6c-5e0fcc3df4c6.lovable.app-1779971791416.png" },
     ],
     links: [
       {

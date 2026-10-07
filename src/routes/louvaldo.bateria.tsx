@@ -15,6 +15,8 @@ export const Route = createFileRoute("/louvaldo/bateria")({
       { name: "description", content: "Toque bateria com Louvaldo: kit virtual, freestyle e desafio rítmico." },
       { property: "og:title", content: "Bateria — Louvaldo" },
       { property: "og:description", content: "Kit de bateria interativo para crianças." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: BateriaPage,

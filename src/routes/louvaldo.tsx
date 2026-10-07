@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, Music2, Disc3, ChevronRight, Heart, ExternalLink } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
+import { CharacterTabs } from "@/components/CharacterTabs";
 import louImg from "@/assets/char-louvaldo.png";
 import { useProgress } from "@/lib/progress";
 import { strumChord, CHORDS } from "@/lib/audio";
@@ -23,6 +24,8 @@ export const Route = createFileRoute("/louvaldo")({
       { name: "description", content: "Cante, toque e celebre com Louvaldo: música de louvor, mini-jogos de instrumentos, karaokê e desafios de ritmo." },
       { property: "og:title", content: "Louvaldo — Louvor & Adoração" },
       { property: "og:description", content: "Música, karaokê e ritmo para o ministério infantil." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: LouvaldoPage,
@@ -49,6 +52,7 @@ function LouvaldoPage() {
         </>
       }
     >
+      <CharacterTabs character="louvaldo">
       {/* Stage */}
       <section className="px-6 mt-2">
         <div className="relative rounded-[2.5rem] overflow-hidden border border-white/20 bg-black/20 backdrop-blur p-6">
@@ -189,6 +193,7 @@ function LouvaldoPage() {
           </div>
         </section>
       )}
+      </CharacterTabs>
     </CharWorld>
   );
 }

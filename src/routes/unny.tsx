@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { QrCode, Calendar, Bell, ShieldCheck, Users, ChevronRight } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
+import { CharacterTabs } from "@/components/CharacterTabs";
 import unnyImg from "@/assets/char-uni.png";
 
 export const Route = createFileRoute("/unny")({
@@ -10,6 +11,8 @@ export const Route = createFileRoute("/unny")({
       { name: "description", content: "Família, comunhão e segurança com Unny: check-in e check-out, calendário, painel dos pais e notificações." },
       { property: "og:title", content: "Unny — Família & Check-in" },
       { property: "og:description", content: "Família e check-in seguro do ministério infantil." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: UnnyPage,
@@ -37,6 +40,7 @@ function UnnyPage() {
         </>
       }
     >
+      <CharacterTabs character="unny">
       {/* Family hero */}
       <section className="px-6 mt-2">
         <div className="rounded-[2.5rem] bg-[oklch(0.18_0.02_60)] text-[oklch(0.97_0.04_92)] p-6 relative overflow-hidden border-l-8 border-[oklch(0.85_0.17_92)]">
@@ -109,6 +113,7 @@ function UnnyPage() {
           </button>
         ))}
       </section>
+      </CharacterTabs>
     </CharWorld>
   );
 }

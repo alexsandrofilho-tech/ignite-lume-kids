@@ -13,6 +13,8 @@ export const Route = createFileRoute("/louvaldo/violao")({
       { name: "description", content: "Aprenda violão com Louvaldo: acordes, dedilhado e mini-jogos." },
       { property: "og:title", content: "Violão — Louvaldo" },
       { property: "og:description", content: "Violão virtual interativo para crianças." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ViolaoPage,

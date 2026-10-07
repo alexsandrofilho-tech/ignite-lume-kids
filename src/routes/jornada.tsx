@@ -20,6 +20,8 @@ export const Route = createFileRoute("/jornada")({
       { name: "description", content: "Acompanhe a jornada da Família Silva pelos 5 mundos da IGNIÇÃO." },
       { property: "og:title", content: "Jornada — IGNIÇÃO" },
       { property: "og:description", content: "Mapa de progresso, missões e conquistas das crianças." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: JornadaPage,
