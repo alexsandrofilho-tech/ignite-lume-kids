@@ -73,12 +73,20 @@
   --color-world-border: var(--world-border);
   --color-world-accent: var(--world-accent);
   --color-world-on-accent: var(--world-on-accent);
+  --color-reader-ink: var(--reader-ink);
+  --color-reader-muted: var(--reader-muted);
+  --color-reader-border: var(--reader-border);
   --font-display: "Fredoka", system-ui, sans-serif;
   --font-sans: "Nunito", system-ui, sans-serif;
 }
 
 :root {
   --radius: 1rem;
+  --reader-surface: oklch(0.99 0.004 90);
+  --reader-ink: oklch(0.25 0.025 55);
+  --reader-muted: oklch(0.48 0.025 55);
+  --reader-border: oklch(0.9 0.015 55);
+  --reader-highlight: oklch(0.94 0.12 90);
   --background: oklch(0.985 0.02 230);
   --warm-bg: oklch(0.985 0.02 230);
   --foreground: oklch(0.22 0.06 270);
@@ -125,6 +133,11 @@
 }
 
 .dark {
+  --reader-surface: oklch(0.22 0.015 55);
+  --reader-ink: oklch(0.96 0.01 85);
+  --reader-muted: oklch(0.76 0.015 85);
+  --reader-border: oklch(0.4 0.02 55);
+  --reader-highlight: oklch(0.4 0.075 75);
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
@@ -187,6 +200,10 @@
   --world-on-accent: oklch(0.18 0.02 60);
 }
 .world-tabs { background: var(--world-panel); color: var(--world-ink); }
+.verse-reader { background: var(--reader-surface); color: var(--reader-ink); padding: 1.25rem; border-radius: 0.5rem; border: 1px solid var(--reader-border); }
+.verse-text { font-family: var(--font-sans); font-size: 1.25rem; line-height: 1.8; }
+.verse-text-large { font-size: 1.5rem; }
+.verse-highlight { background: var(--reader-highlight); border-radius: 0.25rem; }
 .world-tab { color: var(--world-ink); }
 .world-tab[data-state=active] { background: var(--world-accent); color: var(--world-on-accent); }
 .world-heading { font-family: var(--font-display); font-size: 1.5rem; line-height: 1.25; font-weight: 700; margin-bottom: 1rem; color: var(--world-ink); }

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { BookOpen, Check, Heart, Music2, Pause, Play, Plus, RotateCcw, Save, Sparkles, Trash2, Trophy, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { characterContent, lessons, questions, reflections } from '@/lib/character-content';
+import { characterContent, lessons, questions } from '@/lib/character-content';
+import { DevotionalReader } from '@/components/DevotionalReader';
 import { useCharacterActivities } from '@/lib/use-character-activities';
 import { useProgress, type CharKey } from '@/lib/progress';
 import { CHORDS, strumChord, playTick, playSnare } from '@/lib/audio';
@@ -16,7 +17,7 @@ export function CharacterActivities({ character, tab }: { character: CharKey; ta
   const count = activities.state.completed.filter(id => id.startsWith(`${character}:`)).length;
   if (tab === 'about') return <div className="space-y-6"><div className="flex items-center gap-4"><img src={content.image} alt={content.name} className="w-24 shrink-0" /><div><p className="world-eyebrow">Conheça {content.name}</p><h2 className="font-display text-2xl font-bold">{content.motto}</h2></div></div><p className="text-sm leading-relaxed">{content.description}</p><div className="flex flex-wrap gap-3">{content.values.map(value => <span key={value} className="flex items-center gap-2 text-sm font-bold"><Heart className="size-4 text-world-accent" />{value}</span>)}</div><div className="border-t border-world-border pt-5"><p className="world-eyebrow">Sua caminhada com {content.name}</p><div className="flex gap-6 mt-3"><span className="font-display text-xl">{progress.perChar[character]} XP</span><span className="font-display text-xl">{count} atividades</span></div></div></div>;
   if (tab === 'collection') return <div><h2 className="world-heading">Seu jardim de bondade</h2><p className="text-sm mb-5">Cada gesto deixa uma marca de carinho.</p><div className="grid grid-cols-2 gap-3">{[{ title: 'Primeiro gesto', min: 1 }, { title: 'Mãos que ajudam', min: 3 }, { title: 'Coração generoso', min: 5 }, { title: 'Jardim de amor', min: 10 }].map(badge => <div key={badge.title} className={`world-item text-center ${count < badge.min ? 'opacity-60' : ''}`}><Trophy className="size-8 mx-auto text-world-accent mb-2" /><h3 className="font-display font-bold">{badge.title}</h3><p className="text-xs mt-1">{count >= badge.min ? 'Conquistado!' : `${count}/${badge.min} atividades`}</p></div>)}</div><Button asChild variant="world" className="mt-5"><Link to="/lila/perfil"><Sparkles />Ver meu perfil</Link></Button></div>;
-  if (character === 'lume' && tab === 'devotional') return <Devotional activities={activities} />;
+  if (character === 'lume' && tab === 'devotional') return <DevotionalReader activities={activities} />;
   if (character === 'lume' && tab === 'prayer') return <NoteActivity activities={activities} id={`prayer:${dayKey()}`} title="Meu cantinho de oração" prompt="Pelo que você quer agradecer? Por quem deseja orar?" placeholder="Hoje quero agradecer por…" xp={20} />;
   if (character === 'lume' && tab === 'share') return <Checklist activities={activities} title="Espalhe sua luz" items={['Ore por um amigo', 'Compartilhe uma história de Jesus com a família', 'Convide alguém para brincar junto']} />;
   if (character === 'louvaldo' && tab === 'music') return <div><h2 className="world-heading">Gratidão em cada acorde</h2><p className="text-sm mb-5">Uma sequência de acordes para cada momento.</p>{[{ title: 'Manhã de alegria', chord: 'G' }, { title: 'Momento de gratidão', chord: 'C' }, { title: 'Oração tranquila', chord: 'Em' }].map(song => <div key={song.title} className="world-item flex items-center gap-3 mb-3"><Music2 className="size-5 shrink-0 text-world-accent" /><span className="flex-1 font-bold text-sm">{song.title}</span><Button variant="world" size="icon" aria-label={`Tocar acorde ${song.chord}`} onClick={() => strumChord(CHORDS[song.chord].pattern)}><Play /></Button><Button variant="worldGhost" size="icon" aria-label={`Favoritar ${song.title}`} aria-pressed={progress.favorites.includes(`practice:${song.title}`)} onClick={() => toggleFavorite(`practice:${song.title}`)}><Heart className={progress.favorites.includes(`practice:${song.title}`) ? 'fill-current' : ''} /></Button></div>)}<p className="text-xs opacity-75 mt-3">Acordes de prática · não são gravações de músicas.</p></div>;
@@ -46,20 +47,6 @@ function NoteActivity({ activities, id, title, prompt, placeholder, xp }: { acti
   const [saved, setSaved] = useState(false);
   useEffect(() => { setText(activities.state.notes[`${id.startsWith('journal') ? 'lila' : 'lume'}:${id}`] || ''); }, [activities.state.notes, id]);
   return <div><h2 className="world-heading">{title}</h2><label htmlFor="world-note" className="block text-sm mb-3">{prompt}</label><textarea id="world-note" className="world-input min-h-36" maxLength={1200} value={text} onChange={e => { setText(e.target.value); setSaved(false); }} placeholder={placeholder} /><p className="text-xs opacity-75 mt-2">Seu texto fica somente neste dispositivo. Não escreva dados pessoais.</p><Button variant="world" className="mt-4" disabled={!activities.ready || !text.trim()} onClick={() => { activities.saveNote(id, text.trim()); activities.complete(id, xp); setSaved(true); }}><Save />Salvar reflexão</Button>{saved && <p role="status" className="text-sm font-bold mt-3">Salvo com carinho{activities.done(id) ? '.' : ` · +${xp} XP!`}</p>}</div>;
-}
-function Devotional({ activities }: { activities: Activities }) {
-  const [day, setDay] = useState(0);
-  const [speaking, setSpeaking] = useState(false);
-  const [audioMessage, setAudioMessage] = useState('');
-  useEffect(() => { setDay(Math.floor(Date.now() / 86400000) % reflections.length); return () => { window.speechSynthesis?.cancel(); }; }, []);
-  const reflection = reflections[day];
-  function narrate() {
-    if (!('speechSynthesis' in window)) { setAudioMessage('Narração indisponível neste navegador.'); return; }
-    if (speaking) { window.speechSynthesis.cancel(); setSpeaking(false); return; }
-    const speech = new SpeechSynthesisUtterance(`${reflection.title}. ${reflection.passage} ${reflection.story} ${reflection.question}`);
-    speech.lang = 'pt-BR'; speech.onend = () => setSpeaking(false); speech.onerror = () => { setSpeaking(false); setAudioMessage('Não foi possível iniciar a narração.'); }; setSpeaking(true); window.speechSynthesis.speak(speech);
-  }
-  return <article><p className="world-eyebrow">Reflexão do dia · {reflection.reference}</p><h2 className="world-heading mt-2">{reflection.title}</h2><p className="world-item font-display text-lg mb-5">{reflection.passage}</p><p className="text-sm leading-relaxed">{reflection.story}</p><h3 className="font-bold mt-5 mb-2">Vamos pensar?</h3><p className="text-sm">{reflection.question}</p><p className="mt-4 text-sm font-bold">{reflection.action}</p><Button variant="worldGhost" className="mt-4" onClick={narrate}>{speaking ? <Pause /> : <Volume2 />}{speaking ? 'Parar narração' : 'Ouvir reflexão'}</Button>{audioMessage && <p role="status" className="text-sm mt-2">{audioMessage}</p>}<Completion activities={activities} id={`devotional:${dayKey()}`} xp={30} label="Li e refleti" /></article>;
 }
 function Lessons({ activities }: { activities: Activities }) {
   const [selected, setSelected] = useState(0);
