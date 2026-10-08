@@ -1,3 +1,4 @@
 # Architecture rules
 - Character overview routes retain their existing content inside a shared accessible tab shell; character-specific activities live outside route files to preserve navigation and avoid duplicated interaction logic.
 - Expanded character activities use versioned browser-local storage and the existing progress system; they do not imply real ministry check-in, shared family records, or hosted account persistence.
+- Lume's devotional reader keeps Bible quotations with explicit version/source and editorial reflections separate; book adaptations require verified authorized excerpts, never metadata-only attribution.

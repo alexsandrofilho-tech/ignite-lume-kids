@@ -3,6 +3,8 @@ import { Flame, BookOpen, Heart, Compass, Sparkles, ChevronRight } from "lucide-
 import { CharWorld } from "@/components/CharWorld";
 import { CharacterTabs } from "@/components/CharacterTabs";
 import lumeImg from "@/assets/char-lume.png";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 export const Route = createFileRoute("/lume")({
   head: () => ({
@@ -19,6 +21,7 @@ export const Route = createFileRoute("/lume")({
 });
 
 function LumePage() {
+  const [tab, setTab] = useState('overview');
   return (
     <CharWorld
       name="LUME"
@@ -32,7 +35,7 @@ function LumePage() {
         </>
       }
     >
-      <CharacterTabs character="lume">
+      <CharacterTabs character="lume" value={tab} onValueChange={setTab}>
       {/* Hero */}
       <section className="px-6 mt-2">
         <div className="relative rounded-[2.5rem] bg-white/10 backdrop-blur-md border border-white/20 p-6 overflow-hidden">
@@ -53,9 +56,9 @@ function LumePage() {
           <p className="relative text-center text-white/85 text-sm mt-2 max-w-xs mx-auto">
             Acenda sua chama hoje. Lume vai te guiar por uma história que aquece o coração.
           </p>
-          <button className="relative block mx-auto mt-5 bg-white text-[oklch(0.55_0.21_38)] font-display font-bold px-8 py-3 rounded-2xl shadow-xl active:scale-95 hover:scale-105 transition-transform">
+          <Button variant="world" onClick={() => setTab('devotional')} className="relative flex mx-auto mt-5 font-display font-bold px-8 py-3 h-auto rounded-2xl shadow-xl active:scale-95 hover:scale-105 transition-transform">
             COMEÇAR DEVOCIONAL
-          </button>
+          </Button>
         </div>
       </section>
 
