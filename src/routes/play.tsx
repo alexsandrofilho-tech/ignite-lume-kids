@@ -90,6 +90,10 @@ function PlayPage() {
 
         <section aria-labelledby="games-heading">
           <h2 id="games-heading" className="font-display font-extrabold text-lg text-stone-900 mb-3">Jogos</h2>
+          <Link to="/brincadeiras" className="mb-3 flex items-center gap-3 rounded-3xl bg-gradient-to-r from-riso-lilac to-lume p-4 text-white shadow-lg hover:scale-[1.01] transition-transform">
+            <span className="text-3xl" aria-hidden="true">🎡</span>
+            <span className="flex-1"><span className="block font-display font-extrabold">Sala de Brincadeiras</span><span className="text-xs opacity-90">6 jogos: memória, versículos, estrelas, quem sou eu e mais</span></span>
+          </Link>
           <div className="grid grid-cols-2 gap-3">
             {games.map((g) => (
               <Link
