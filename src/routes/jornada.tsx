@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppBottomNav } from "@/components/AppBottomNav";
+import { JourneyExtras } from "@/components/AreaExtras";
 import { ChevronRight, Star, Lock, Check, Dices, Sparkles } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import {
@@ -363,6 +364,7 @@ function JornadaPage() {
             );
           })}
         </ol>
+        <JourneyExtras />
       </div>
       <AppBottomNav />
     </div>
