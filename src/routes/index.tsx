@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Play, Users, Sparkles, BookOpen, ChevronRight } from "lucide-react";
 import { AppBottomNav } from "@/components/AppBottomNav";
+import { HomeExtras } from "@/components/AreaExtras";
 import uniImg from "@/assets/char-uni.png";
 import lumeImg from "@/assets/char-lume.png";
 import risoImg from "@/assets/char-lila.png";
@@ -292,6 +293,7 @@ function Index() {
             </div>
             <ChevronRight className="size-5 text-slate-500 ml-auto" />
           </Link>
+          <HomeExtras />
         </main>
 
       </div>

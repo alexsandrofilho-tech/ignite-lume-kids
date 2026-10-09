@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppBottomNav } from "@/components/AppBottomNav";
+import { FamilyExtras } from "@/components/AreaExtras";
 import { Calendar, Bell, CheckCircle2, Users, ChevronRight, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import uniImg from "@/assets/char-uni.png";
@@ -133,6 +134,7 @@ function FamiliaPage() {
             </Link>
           </div>
         </section>
+        <FamilyExtras />
       </div>
       <AppBottomNav />
     </div>
