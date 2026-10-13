@@ -9,61 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as BrincadeirasRouteImport } from './routes/brincadeiras'
-import { Route as FamiliaRouteImport } from './routes/familia'
-import { Route as JornadaRouteImport } from './routes/jornada'
-import { Route as LilaRouteImport } from './routes/lila'
-import { Route as LouvaldoRouteImport } from './routes/louvaldo'
-import { Route as LumeRouteImport } from './routes/lume'
-import { Route as PlayRouteImport } from './routes/play'
-import { Route as RisoletaRouteImport } from './routes/risoleta'
 import { Route as UnnyRouteImport } from './routes/unny'
-import { Route as LilaJornadaRouteImport } from './routes/lila.jornada'
-import { Route as LilaPerfilRouteImport } from './routes/lila.perfil'
-import { Route as LilaQuizRouteImport } from './routes/lila.quiz'
-import { Route as LilaRankingRouteImport } from './routes/lila.ranking'
-import { Route as LouvaldoBateriaRouteImport } from './routes/louvaldo.bateria'
+import { Route as RisoletaRouteImport } from './routes/risoleta'
+import { Route as PlayRouteImport } from './routes/play'
+import { Route as LumeRouteImport } from './routes/lume'
+import { Route as LouvaldoRouteImport } from './routes/louvaldo'
+import { Route as LilaRouteImport } from './routes/lila'
+import { Route as JornadaRouteImport } from './routes/jornada'
+import { Route as FamiliaRouteImport } from './routes/familia'
+import { Route as BrincadeirasRouteImport } from './routes/brincadeiras'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as LouvaldoViolaoRouteImport } from './routes/louvaldo.violao'
+import { Route as LouvaldoBateriaRouteImport } from './routes/louvaldo.bateria'
+import { Route as LilaRankingRouteImport } from './routes/lila.ranking'
+import { Route as LilaQuizRouteImport } from './routes/lila.quiz'
+import { Route as LilaPerfilRouteImport } from './routes/lila.perfil'
+import { Route as LilaJornadaRouteImport } from './routes/lila.jornada'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BrincadeirasRoute = BrincadeirasRouteImport.update({
-  id: '/brincadeiras',
-  path: '/brincadeiras',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FamiliaRoute = FamiliaRouteImport.update({
-  id: '/familia',
-  path: '/familia',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JornadaRoute = JornadaRouteImport.update({
-  id: '/jornada',
-  path: '/jornada',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LilaRoute = LilaRouteImport.update({
-  id: '/lila',
-  path: '/lila',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LouvaldoRoute = LouvaldoRouteImport.update({
-  id: '/louvaldo',
-  path: '/louvaldo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LumeRoute = LumeRouteImport.update({
-  id: '/lume',
-  path: '/lume',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlayRoute = PlayRouteImport.update({
-  id: '/play',
-  path: '/play',
+const UnnyRoute = UnnyRouteImport.update({
+  id: '/unny',
+  path: '/unny',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RisoletaRoute = RisoletaRouteImport.update({
@@ -71,19 +36,59 @@ const RisoletaRoute = RisoletaRouteImport.update({
   path: '/risoleta',
   getParentRoute: () => rootRouteImport,
 } as any)
-const UnnyRoute = UnnyRouteImport.update({
-  id: '/unny',
-  path: '/unny',
+const PlayRoute = PlayRouteImport.update({
+  id: '/play',
+  path: '/play',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LilaJornadaRoute = LilaJornadaRouteImport.update({
+const LumeRoute = LumeRouteImport.update({
+  id: '/lume',
+  path: '/lume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LouvaldoRoute = LouvaldoRouteImport.update({
+  id: '/louvaldo',
+  path: '/louvaldo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LilaRoute = LilaRouteImport.update({
+  id: '/lila',
+  path: '/lila',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaRoute = JornadaRouteImport.update({
   id: '/jornada',
   path: '/jornada',
-  getParentRoute: () => LilaRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-const LilaPerfilRoute = LilaPerfilRouteImport.update({
-  id: '/perfil',
-  path: '/perfil',
+const FamiliaRoute = FamiliaRouteImport.update({
+  id: '/familia',
+  path: '/familia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrincadeirasRoute = BrincadeirasRouteImport.update({
+  id: '/brincadeiras',
+  path: '/brincadeiras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LouvaldoViolaoRoute = LouvaldoViolaoRouteImport.update({
+  id: '/violao',
+  path: '/violao',
+  getParentRoute: () => LouvaldoRoute,
+} as any)
+const LouvaldoBateriaRoute = LouvaldoBateriaRouteImport.update({
+  id: '/bateria',
+  path: '/bateria',
+  getParentRoute: () => LouvaldoRoute,
+} as any)
+const LilaRankingRoute = LilaRankingRouteImport.update({
+  id: '/ranking',
+  path: '/ranking',
   getParentRoute: () => LilaRoute,
 } as any)
 const LilaQuizRoute = LilaQuizRouteImport.update({
@@ -91,20 +96,15 @@ const LilaQuizRoute = LilaQuizRouteImport.update({
   path: '/quiz',
   getParentRoute: () => LilaRoute,
 } as any)
-const LilaRankingRoute = LilaRankingRouteImport.update({
-  id: '/ranking',
-  path: '/ranking',
+const LilaPerfilRoute = LilaPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => LilaRoute,
 } as any)
-const LouvaldoBateriaRoute = LouvaldoBateriaRouteImport.update({
-  id: '/bateria',
-  path: '/bateria',
-  getParentRoute: () => LouvaldoRoute,
-} as any)
-const LouvaldoViolaoRoute = LouvaldoViolaoRouteImport.update({
-  id: '/violao',
-  path: '/violao',
-  getParentRoute: () => LouvaldoRoute,
+const LilaJornadaRoute = LilaJornadaRouteImport.update({
+  id: '/jornada',
+  path: '/jornada',
+  getParentRoute: () => LilaRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -234,60 +234,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/brincadeiras': {
-      id: '/brincadeiras'
-      path: '/brincadeiras'
-      fullPath: '/brincadeiras'
-      preLoaderRoute: typeof BrincadeirasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/familia': {
-      id: '/familia'
-      path: '/familia'
-      fullPath: '/familia'
-      preLoaderRoute: typeof FamiliaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/jornada': {
-      id: '/jornada'
-      path: '/jornada'
-      fullPath: '/jornada'
-      preLoaderRoute: typeof JornadaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lila': {
-      id: '/lila'
-      path: '/lila'
-      fullPath: '/lila'
-      preLoaderRoute: typeof LilaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/louvaldo': {
-      id: '/louvaldo'
-      path: '/louvaldo'
-      fullPath: '/louvaldo'
-      preLoaderRoute: typeof LouvaldoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lume': {
-      id: '/lume'
-      path: '/lume'
-      fullPath: '/lume'
-      preLoaderRoute: typeof LumeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/play': {
-      id: '/play'
-      path: '/play'
-      fullPath: '/play'
-      preLoaderRoute: typeof PlayRouteImport
+    '/unny': {
+      id: '/unny'
+      path: '/unny'
+      fullPath: '/unny'
+      preLoaderRoute: typeof UnnyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/risoleta': {
@@ -297,25 +248,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RisoletaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/unny': {
-      id: '/unny'
-      path: '/unny'
-      fullPath: '/unny'
-      preLoaderRoute: typeof UnnyRouteImport
+    '/play': {
+      id: '/play'
+      path: '/play'
+      fullPath: '/play'
+      preLoaderRoute: typeof PlayRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lila/jornada': {
-      id: '/lila/jornada'
-      path: '/jornada'
-      fullPath: '/lila/jornada'
-      preLoaderRoute: typeof LilaJornadaRouteImport
-      parentRoute: typeof LilaRoute
+    '/lume': {
+      id: '/lume'
+      path: '/lume'
+      fullPath: '/lume'
+      preLoaderRoute: typeof LumeRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/lila/perfil': {
-      id: '/lila/perfil'
-      path: '/perfil'
-      fullPath: '/lila/perfil'
-      preLoaderRoute: typeof LilaPerfilRouteImport
+    '/louvaldo': {
+      id: '/louvaldo'
+      path: '/louvaldo'
+      fullPath: '/louvaldo'
+      preLoaderRoute: typeof LouvaldoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lila': {
+      id: '/lila'
+      path: '/lila'
+      fullPath: '/lila'
+      preLoaderRoute: typeof LilaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada': {
+      id: '/jornada'
+      path: '/jornada'
+      fullPath: '/jornada'
+      preLoaderRoute: typeof JornadaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/familia': {
+      id: '/familia'
+      path: '/familia'
+      fullPath: '/familia'
+      preLoaderRoute: typeof FamiliaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brincadeiras': {
+      id: '/brincadeiras'
+      path: '/brincadeiras'
+      fullPath: '/brincadeiras'
+      preLoaderRoute: typeof BrincadeirasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/louvaldo/violao': {
+      id: '/louvaldo/violao'
+      path: '/violao'
+      fullPath: '/louvaldo/violao'
+      preLoaderRoute: typeof LouvaldoViolaoRouteImport
+      parentRoute: typeof LouvaldoRoute
+    }
+    '/louvaldo/bateria': {
+      id: '/louvaldo/bateria'
+      path: '/bateria'
+      fullPath: '/louvaldo/bateria'
+      preLoaderRoute: typeof LouvaldoBateriaRouteImport
+      parentRoute: typeof LouvaldoRoute
+    }
+    '/lila/ranking': {
+      id: '/lila/ranking'
+      path: '/ranking'
+      fullPath: '/lila/ranking'
+      preLoaderRoute: typeof LilaRankingRouteImport
       parentRoute: typeof LilaRoute
     }
     '/lila/quiz': {
@@ -325,26 +332,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LilaQuizRouteImport
       parentRoute: typeof LilaRoute
     }
-    '/lila/ranking': {
-      id: '/lila/ranking'
-      path: '/ranking'
-      fullPath: '/lila/ranking'
-      preLoaderRoute: typeof LilaRankingRouteImport
+    '/lila/perfil': {
+      id: '/lila/perfil'
+      path: '/perfil'
+      fullPath: '/lila/perfil'
+      preLoaderRoute: typeof LilaPerfilRouteImport
       parentRoute: typeof LilaRoute
     }
-    '/louvaldo/bateria': {
-      id: '/louvaldo/bateria'
-      path: '/bateria'
-      fullPath: '/louvaldo/bateria'
-      preLoaderRoute: typeof LouvaldoBateriaRouteImport
-      parentRoute: typeof LouvaldoRoute
-    }
-    '/louvaldo/violao': {
-      id: '/louvaldo/violao'
-      path: '/violao'
-      fullPath: '/louvaldo/violao'
-      preLoaderRoute: typeof LouvaldoViolaoRouteImport
-      parentRoute: typeof LouvaldoRoute
+    '/lila/jornada': {
+      id: '/lila/jornada'
+      path: '/jornada'
+      fullPath: '/lila/jornada'
+      preLoaderRoute: typeof LilaJornadaRouteImport
+      parentRoute: typeof LilaRoute
     }
   }
 }
