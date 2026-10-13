@@ -81,14 +81,14 @@ function LumePage() {
       {/* Feature grid */}
       <section className="px-6 mt-6 grid grid-cols-2 gap-3">
         {[
-          { Icon: BookOpen, title: "Leitura Bíblica", desc: "Plano em 21 dias", xp: "+30 XP" },
-          { Icon: Heart, title: "Oração", desc: "Desafio do silêncio", xp: "+20 XP" },
-          { Icon: Compass, title: "Evangelismo", desc: "Missão amigo novo", xp: "+50 XP" },
-          { Icon: Sparkles, title: "Histórias", desc: "Faísca de fé", xp: "+15 XP" },
-        ].map(({ Icon, title, desc, xp }) => (
-          <button
+          { Icon: BookOpen, title: "Leitura Bíblica", desc: "Versículos e reflexão", xp: "+30 XP", tab: "devotional" },
+          { Icon: Heart, title: "Oração", desc: "Meu cantinho de oração", xp: "+20 XP", tab: "prayer" },
+          { Icon: Compass, title: "Evangelismo", desc: "Gestos de acolhimento", xp: "+10 XP por gesto", tab: "share" },
+          { Icon: Sparkles, title: "Histórias", desc: "Escolha o próximo capítulo", xp: "+25 XP", tab: "stories" },
+        ].map(({ Icon, title, desc, xp, tab: targetTab }) => (
+          <Button variant="worldGhost" onClick={() => setTab(targetTab)}
             key={title}
-            className="text-left rounded-3xl bg-white/10 backdrop-blur border border-white/15 p-4 hover:bg-white/20 transition-colors"
+            className="block h-auto whitespace-normal text-left rounded-3xl bg-white/10 backdrop-blur border border-white/15 p-4 hover:bg-white/20 transition-colors"
           >
             <div className="size-10 rounded-xl bg-white/90 grid place-items-center mb-3">
               <Icon className="size-5 text-[oklch(0.55_0.21_38)]" strokeWidth={2.5} />
@@ -96,13 +96,13 @@ function LumePage() {
             <p className="font-display font-bold text-base leading-tight">{title}</p>
             <p className="text-xs text-white/70">{desc}</p>
             <p className="text-[10px] font-bold mt-2 text-[oklch(0.95_0.16_85)]">{xp}</p>
-          </button>
+          </Button>
         ))}
       </section>
 
       {/* Featured mission */}
       <section className="px-6 mt-6">
-        <button className="w-full rounded-[2rem] bg-[oklch(0.32_0.12_30)] border border-white/15 p-5 flex items-center gap-4 text-left hover:bg-[oklch(0.38_0.14_30)] transition-colors">
+        <Button variant="worldGhost" onClick={() => setTab("share")} className="h-auto whitespace-normal w-full rounded-[2rem] bg-[oklch(0.32_0.12_30)] border border-white/15 p-5 flex items-center gap-4 text-left hover:bg-[oklch(0.38_0.14_30)] transition-colors">
           <div className="size-14 rounded-2xl bg-[oklch(0.92_0.16_85)] grid place-items-center text-[oklch(0.45_0.18_30)] flex-shrink-0">
             <Flame className="size-7" />
           </div>
@@ -112,7 +112,7 @@ function LumePage() {
             <p className="text-xs text-white/60">Conte a história de Jesus para alguém</p>
           </div>
           <ChevronRight className="size-5" />
-        </button>
+        </Button>
       </section>
       </CharacterTabs>
     </CharWorld>

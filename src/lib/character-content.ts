@@ -4,6 +4,7 @@ import risoleta from '@/assets/char-lila.png';
 import lila from '@/assets/char-risoleta.png';
 import unny from '@/assets/char-uni.png';
 import type { CharKey } from '@/lib/progress';
+import { adventureTabs } from './world-adventures';
 
 export const characterContent: Record<CharKey, { name: string; image: string; motto: string; description: string; values: string[]; tabs: { id: string; label: string }[] }> = {
   lume: { name: 'Lume', image: lume, motto: 'Uma pequena luz pode iluminar um grande caminho.', description: 'Com Lume, a fé cresce nas conversas com Jesus, na descoberta da Bíblia e no amor que compartilhamos. Cada dia é uma oportunidade de levar esperança a alguém.', values: ['Esperança', 'Coragem', 'Fé'], tabs: [{ id: 'devotional', label: 'Devocional' }, { id: 'prayer', label: 'Oração' }, { id: 'share', label: 'Espalhar luz' }] },
@@ -12,6 +13,10 @@ export const characterContent: Record<CharKey, { name: string; image: string; mo
   lila: { name: 'Lila', image: lila, motto: 'Pequenos gestos, grande amor.', description: 'Com Lila, aprender sobre amor também significa colocá-lo em prática. Ajudar em casa, ouvir um amigo e agradecer são pequenas missões que fazem a diferença.', values: ['Bondade', 'Serviço', 'Generosidade'], tabs: [{ id: 'kindness', label: 'Bondade' }, { id: 'journal', label: 'Meu diário' }, { id: 'collection', label: 'Conquistas' }] },
   unny: { name: 'Unny', image: unny, motto: 'Juntos, a nossa família floresce.', description: 'Com Unny, a família encontra tempo para estar perto, conversar e cuidar. Cultive momentos de comunhão e prepare o coração para viver a fé em família.', values: ['Cuidado', 'Comunhão', 'Família'], tabs: [{ id: 'family', label: 'Em família' }, { id: 'reading', label: 'Conversar' }, { id: 'reminders', label: 'Lembretes' }] },
 };
+
+for (const character of Object.keys(characterContent) as CharKey[]) {
+  characterContent[character].tabs.push(...adventureTabs[character]);
+}
 
 export const reflections = [
   { title: 'Uma conversa com Jesus', reference: 'Mateus 6:6', passage: 'Jesus ensina que podemos conversar com o Pai em um lugar tranquilo.', story: 'Depois de um dia cheio, uma criança separou um momento de silêncio. Não precisava de palavras difíceis: contou a Deus o que a alegrava e o que a preocupava.', question: 'O que você gostaria de contar a Jesus hoje?', action: 'Reserve um momento tranquilo e converse com Deus sobre seu dia.' },

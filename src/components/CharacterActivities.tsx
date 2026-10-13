@@ -4,6 +4,7 @@ import { BookOpen, Check, Heart, Music2, Pause, Play, Plus, RotateCcw, Save, Spa
 import { Button } from '@/components/ui/button';
 import { characterContent, lessons, questions } from '@/lib/character-content';
 import { DevotionalReader } from '@/components/DevotionalReader';
+import { WorldAdventures } from '@/components/WorldAdventures';
 import { useCharacterActivities } from '@/lib/use-character-activities';
 import { useProgress, type CharKey } from '@/lib/progress';
 import { CHORDS, strumChord, playTick, playSnare } from '@/lib/audio';
@@ -31,7 +32,7 @@ export function CharacterActivities({ character, tab }: { character: CharKey; ta
   if (character === 'unny' && tab === 'family') return <Checklist activities={activities} title="Tempo de qualidade em família" items={['Façam uma oração juntos', 'Cada pessoa conta uma coisa boa do dia', 'Leiam uma história bíblica em família', 'Preparem juntos um gesto de bondade']} />;
   if (character === 'unny' && tab === 'reading') return <div><h2 className="world-heading">Uma conversa que aproxima</h2><p className="world-eyebrow mb-3">Marcos 10:13–16 · Jesus acolhe as crianças</p><p className="text-sm leading-relaxed mb-5">Jesus recebeu as crianças com carinho. Ele mostrou que cada uma é importante e tem lugar perto dele. Em família, ninguém é pequeno demais para ser ouvido.</p><ol className="list-decimal pl-5 space-y-3 text-sm"><li>Quando você se sentiu acolhido nesta semana?</li><li>Como podemos ouvir uns aos outros com mais atenção?</li><li>Que gesto de carinho podemos fazer juntos?</li></ol><Completion activities={activities} id={`family-reading:${dayKey()}`} xp={20} label="Conversamos em família" /></div>;
   if (character === 'unny' && tab === 'reminders') return <Reminders activities={activities} />;
-  return null;
+  return <WorldAdventures character={character} tab={tab} />;
 }
 
 type Activities = ReturnType<typeof useCharacterActivities>;
