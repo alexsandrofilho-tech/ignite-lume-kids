@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Play, Music2, Disc3, ChevronRight, Heart, ExternalLink } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
 import { CharacterTabs } from "@/components/CharacterTabs";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import louImg from "@/assets/char-louvaldo.png";
 import { useProgress } from "@/lib/progress";
 import { strumChord, CHORDS } from "@/lib/audio";
@@ -32,6 +34,7 @@ export const Route = createFileRoute("/louvaldo")({
 });
 
 function LouvaldoPage() {
+  const [tab, setTab] = useState('overview');
   const { progress, toggleFavorite } = useProgress();
   const todayIdx = new Date().getDate() % DAILY_SONGS.length;
   const dailySong = DAILY_SONGS[todayIdx];
@@ -52,7 +55,7 @@ function LouvaldoPage() {
         </>
       }
     >
-      <CharacterTabs character="louvaldo">
+      <CharacterTabs character="louvaldo" value={tab} onValueChange={setTab}>
       {/* Stage */}
       <section className="px-6 mt-2">
         <div className="relative rounded-[2.5rem] overflow-hidden border border-white/20 bg-black/20 backdrop-blur p-6">
@@ -80,17 +83,17 @@ function LouvaldoPage() {
           </div>
 
           <div className="flex justify-center gap-4 mt-5">
-            <button className="size-12 rounded-full bg-white/20 grid place-items-center hover:bg-white/30 transition">
+            <Button variant="worldGhost" aria-label="Abrir músicas de prática" onClick={() => setTab("music")} className="size-12 rounded-full bg-white/20 grid place-items-center hover:bg-white/30 transition">
               <Disc3 className="size-5" />
-            </button>
-            <button
+            </Button>
+            <Button variant="worldGhost"
               onClick={() => strumChord(CHORDS.G.pattern)}
               className="size-16 rounded-full bg-white text-[oklch(0.45_0.16_150)] grid place-items-center shadow-2xl active:scale-95 hover:scale-105 transition-transform"
-              aria-label="Tocar prévia"
+              aria-label="Tocar acorde de prática"
             >
               <Play className="size-7 fill-current ml-1" />
-            </button>
-            <button
+            </Button>
+            <Button variant="worldGhost"
               onClick={() => toggleFavorite(`song:${dailySong}`)}
               aria-label="Favoritar"
               className={`size-12 rounded-full grid place-items-center transition ${
@@ -100,7 +103,7 @@ function LouvaldoPage() {
               }`}
             >
               <Heart className={`size-5 ${isFav(`song:${dailySong}`) ? "fill-current" : ""}`} />
-            </button>
+            </Button>
           </div>
         </div>
       </section>
@@ -118,7 +121,7 @@ function LouvaldoPage() {
           </div>
           <div className="flex-1">
             <p className="font-display font-bold text-base leading-tight">Cia do Lume no Spotify</p>
-            <p className="text-xs text-white/80">Abrir playlist oficial</p>
+            <p className="text-xs text-white/80">Buscar Cia do Lume</p>
           </div>
           <ExternalLink className="size-5" />
         </a>
@@ -146,16 +149,16 @@ function LouvaldoPage() {
         <p className="text-[10px] font-bold uppercase tracking-widest text-white/70 mb-3">Playlists do Show</p>
         <div className="flex gap-3 overflow-x-auto no-scrollbar pb-1">
           {["Top Adoração", "Louvor Kids", "Histórias Cantadas", "Acústicos"].map((p, i) => (
-            <button
+            <Button variant="worldGhost" onClick={() => setTab("music")}
               key={p}
-              className="flex-shrink-0 w-40 h-40 rounded-3xl bg-gradient-to-br from-white/20 to-white/5 border border-white/20 p-4 flex flex-col justify-between text-left hover:from-white/30 transition"
+              className="whitespace-normal flex-shrink-0 w-40 h-40 rounded-3xl bg-gradient-to-br from-white/20 to-white/5 border border-white/20 p-4 flex flex-col justify-between text-left hover:from-white/30 transition"
             >
               <Music2 className="size-7 text-white" />
               <div>
                 <p className="font-display font-bold text-base leading-tight">{p}</p>
-                <p className="text-[10px] text-white/70">{(i + 1) * 6} faixas</p>
+                <p className="text-[10px] text-white/70">Acordes de prática</p>
               </div>
-            </button>
+            </Button>
           ))}
         </div>
       </section>
@@ -165,18 +168,18 @@ function LouvaldoPage() {
         {[
           { title: "Bateria", desc: "Kit virtual · ritmo", to: "/louvaldo/bateria", color: "from-[oklch(0.75_0.18_160)] to-[oklch(0.40_0.14_155)]" },
           { title: "Violão", desc: "Acordes & quiz", to: "/louvaldo/violao", color: "from-[oklch(0.80_0.18_135)] to-[oklch(0.45_0.16_145)]" },
-          { title: "Karaokê", desc: "Em breve", to: "/louvaldo", color: "from-[oklch(0.85_0.20_140)] to-[oklch(0.55_0.18_150)]" },
+          { title: "Meu estúdio", desc: "Crie seu ritmo", to: "/louvaldo", color: "from-[oklch(0.85_0.20_140)] to-[oklch(0.55_0.18_150)]" },
           { title: "Desafio Rítmico", desc: "Bateria · Difícil", to: "/louvaldo/bateria", color: "from-[oklch(0.70_0.20_155)] to-[oklch(0.35_0.12_150)]" },
         ].map((g) => (
-          <Link
+          <Button key={g.title} asChild variant="worldGhost" className="h-auto block whitespace-normal p-0"><Link
+            onClick={g.to === "/louvaldo" ? (event) => { event.preventDefault(); setTab("studio"); } : undefined}
             to={g.to}
-            key={g.title}
             className={`rounded-3xl bg-gradient-to-br ${g.color} p-4 text-left border border-white/15 hover:scale-[1.02] transition-transform block`}
           >
             <p className="font-display font-bold text-base leading-tight">{g.title}</p>
             <p className="text-xs text-white/80">{g.desc}</p>
             <ChevronRight className="size-5 mt-3 ml-auto" />
-          </Link>
+          </Link></Button>
         ))}
       </section>
 

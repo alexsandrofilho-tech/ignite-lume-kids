@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BookOpen, Brain, Puzzle, Trophy, Sparkles, ChevronRight } from "lucide-react";
 import { CharWorld } from "@/components/CharWorld";
 import { CharacterTabs } from "@/components/CharacterTabs";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import risoImg from "@/assets/char-lila.png";
 
 export const Route = createFileRoute("/risoleta")({
@@ -19,6 +21,7 @@ export const Route = createFileRoute("/risoleta")({
 });
 
 function RisoletaPage() {
+  const [tab, setTab] = useState('overview');
   return (
     <CharWorld
       name="RISOLETA"
@@ -33,7 +36,7 @@ function RisoletaPage() {
         </>
       }
     >
-      <CharacterTabs character="risoleta">
+      <CharacterTabs character="risoleta" value={tab} onValueChange={setTab}>
       {/* Adventure hero */}
       <section className="px-6 mt-2">
         <div className="relative rounded-[2.5rem] bg-white/40 backdrop-blur-md border border-white/60 p-6 overflow-hidden">
@@ -54,27 +57,27 @@ function RisoletaPage() {
             </div>
             <p className="text-center text-[10px] font-bold mt-2 text-[oklch(0.40_0.10_310)]">75% concluído · 12 colecionáveis</p>
           </div>
-          <button className="block mx-auto mt-5 bg-[oklch(0.30_0.10_310)] text-white font-display font-bold px-8 py-3 rounded-2xl shadow-xl active:scale-95 hover:scale-105 transition-transform">
+          <Button variant="world" onClick={() => setTab("lessons")} className="h-auto block mx-auto mt-5 bg-[oklch(0.30_0.10_310)] text-white font-display font-bold px-8 py-3 rounded-2xl shadow-xl active:scale-95 hover:scale-105 transition-transform">
             CONTINUAR LIÇÃO
-          </button>
+          </Button>
         </div>
       </section>
 
       {/* Lesson grid */}
       <section className="px-6 mt-6 grid grid-cols-2 gap-3">
         {[
-          { Icon: BookOpen, t: "Lição de Hoje", d: "Davi e Golias", color: "bg-[oklch(0.92_0.18_92)] text-[oklch(0.30_0.10_310)]" },
-          { Icon: Brain, t: "Quiz", d: "10 perguntas · +50 XP", color: "bg-[oklch(0.75_0.18_310)] text-white" },
-          { Icon: Puzzle, t: "Jogo Bíblico", d: "Caça-versículos", color: "bg-[oklch(0.85_0.16_300)] text-[oklch(0.25_0.08_310)]" },
-          { Icon: Trophy, t: "Conquistas", d: "12 medalhas", color: "bg-[oklch(0.95_0.14_92)] text-[oklch(0.30_0.10_310)]" },
-        ].map(({ Icon, t, d, color }) => (
-          <button key={t} className={`rounded-3xl ${color} p-4 text-left border border-white/40 hover:scale-[1.02] transition-transform shadow-lg shadow-[oklch(0.30_0.10_310)]/15`}>
+          { Icon: BookOpen, t: "Lição de Hoje", d: "Davi e Golias", tab: "lessons", color: "bg-[oklch(0.92_0.18_92)] text-[oklch(0.30_0.10_310)]" },
+          { Icon: Brain, t: "Quiz", d: "5 perguntas · até 25 XP", tab: "quiz", color: "bg-[oklch(0.75_0.18_310)] text-white" },
+          { Icon: Puzzle, t: "Jogo Bíblico", d: "Encontre os pares", tab: "memory", color: "bg-[oklch(0.85_0.16_300)] text-[oklch(0.25_0.08_310)]" },
+          { Icon: Trophy, t: "Conquistas", d: "Sua caminhada", tab: "about", color: "bg-[oklch(0.95_0.14_92)] text-[oklch(0.30_0.10_310)]" },
+        ].map(({ Icon, t, d, color, tab: targetTab }) => (
+          <Button variant="worldGhost" onClick={() => setTab(targetTab)} key={t} className={`block h-auto whitespace-normal rounded-3xl ${color} p-4 text-left border border-white/40 hover:scale-[1.02] transition-transform shadow-lg shadow-[oklch(0.30_0.10_310)]/15`}>
             <div className="size-10 rounded-xl bg-white/60 grid place-items-center mb-3">
               <Icon className="size-5" strokeWidth={2.5} />
             </div>
             <p className="font-display font-bold text-base leading-tight">{t}</p>
             <p className="text-xs opacity-80">{d}</p>
-          </button>
+          </Button>
         ))}
       </section>
 
