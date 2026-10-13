@@ -1,4 +1,6 @@
 # Character worlds expansion
+- [ ] Expand all five character worlds with ten themed activities, working overview shortcuts, and saved rewards.
+- [ ] Verify each new character activity and persistence through the pages.
 - [x] Prepare Lume devotional reading with sourced ARC verses, highlight/bookmark controls, narration, reflection notes, and completion.
 - [ ] Adapt Céus Abertos infantil: blocked on authorized excerpts supplied by the user; verified publisher metadata alone is not devotional source material.
 - [x] Add character-specific tabs and detailed activities to all five worlds.
